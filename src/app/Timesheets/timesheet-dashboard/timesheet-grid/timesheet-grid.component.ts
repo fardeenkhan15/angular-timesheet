@@ -10,21 +10,19 @@ import { and } from '@progress/kendo-angular-grid/utils';
 import { filter } from '@progress/kendo-data-query/dist/npm/transducers';
 import { FormGroup, ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { NgClass } from '@angular/common';
+import { Router, RouterOutlet } from '@angular/router';
+
 
 @Component({
   selector: 'app-timesheet-grid',
   standalone: true,
   imports: [
-    GridModule, ReactiveFormsModule, NgClass
+    GridModule, ReactiveFormsModule, NgClass, RouterOutlet
   ],
   templateUrl: './timesheet-grid.component.html',
   styleUrl: './timesheet-grid.component.css'
 })
 export class TimesheetGridComponent {
-  manualTimesheetForm: FormGroup;
-  uploadCsvForm: FormGroup;
-  showManualCreation = false;
-  showUploadCSV = false;
   groups:GroupDescriptor[] = [];
   timesheets:any[] = []
   gridData:any = {data:[], total: 0};
@@ -116,49 +114,6 @@ export class TimesheetGridComponent {
       this.gridloading = false;
     })
 
-  }
-  private fb = inject(FormBuilder);
- 
-  constructor() {
-    this.manualTimesheetForm = this.fb.group({
-      timesheet_name: ['', Validators.required],
-      timesheet_date: ['', Validators.required]
-    });
- 
-    this.uploadCsvForm = this.fb.group({
-      timesheet_name: ['', Validators.required],
-      timesheet_date: ['', Validators.required],
-      file_upload: [null, Validators.required]
-    });
-  }
- 
-  toggleManualCreation() {
-    this.showManualCreation = !this.showManualCreation;
-    this.showUploadCSV = false;
-  }
- 
-  toggleUploadCSV() {
-    this.showUploadCSV = !this.showUploadCSV;
-    this.showManualCreation = false;
-  }
- 
-  onManualTimesheetSubmit() {
-    if (this.manualTimesheetForm.valid) {
-      // Handle manual timesheet submission
-      console.log(this.manualTimesheetForm.value);
-    }
-  }
- 
-  onUploadCSVSubmit() {
-    if (this.uploadCsvForm.valid) {
-      // Handle CSV upload submission
-      console.log(this.uploadCsvForm.value);
-    }
-  }
- 
-  viewTimesheet(timesheetId: number) {
-    // Handle timesheet detail view
-    console.log(`View timesheet with ID: ${timesheetId}`);
   }
 }
 

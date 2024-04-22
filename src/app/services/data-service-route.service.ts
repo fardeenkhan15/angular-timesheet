@@ -15,6 +15,10 @@ export class DataServiceRouteService {
     return this.httpClient.get<timesheet>(this.apiUrl+"/dashboard?skip="+skip+"&take="+take);
   }
 
+  storeManualTimesheet(timesheet:any){
+    return this.httpClient.post<any>(this.apiUrl+"/timesheets", timesheet)
+  }
+
   fetchDataTimesheetDetails(){
 
   }
