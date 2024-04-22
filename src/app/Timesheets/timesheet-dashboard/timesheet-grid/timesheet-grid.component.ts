@@ -94,5 +94,11 @@ export class TimesheetGridComponent {
     })
 
   }
+  toggleManualCreation(){
+
+  }
+  toggleUploadCSV(){
+
+  }
 }
 
