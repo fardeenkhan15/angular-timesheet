@@ -4,7 +4,7 @@ import { timesheet } from '../../../models/timesheet';
 import { GridModule } from '@progress/kendo-angular-grid';
 import { GridData } from '../../../models/griddata';
 import { GridDataResult } from '@progress/kendo-angular-grid';
-import { CompositeFilterDescriptor, GroupDescriptor, GroupResult, filterBy, process } from '@progress/kendo-data-query';
+import { CompositeFilterDescriptor, GroupDescriptor, GroupResult, SortDescriptor, filterBy, orderBy, process } from '@progress/kendo-data-query';
 import { groupBy } from '@progress/kendo-data-query';
 import { and } from '@progress/kendo-angular-grid/utils';
 import { filter } from '@progress/kendo-data-query/dist/npm/transducers';
@@ -30,14 +30,19 @@ export class TimesheetGridComponent {
   gridData:any = {data:[], total: 0};
   user:string = "";
   gridloading = false;
-  grid: any = {
+
+  grid: any|GridDataResult = {
     data: [],
     total: 0
   };
+
   filter: CompositeFilterDescriptor = {
     logic: "and",
     filters: [],
   }
+
+  sort: SortDescriptor[] = [];
+
   dataService = inject(DataServiceRouteService)
   pageSize = 10;
   skip = 0;
@@ -65,6 +70,18 @@ export class TimesheetGridComponent {
       filters:filter.filters
     }
     this.filterItem();
+  }
+
+  sortChange(sort: any){
+    this.sort = sort;
+    this.sortItem();
+  }
+
+  sortItem(){
+    this.grid = {
+      data: orderBy(this.timesheets,this.sort),
+      total: this.total
+    }
   }
 
   filterItem(){
