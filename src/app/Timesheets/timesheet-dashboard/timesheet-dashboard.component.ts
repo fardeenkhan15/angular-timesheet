@@ -8,9 +8,7 @@ import { GridModule } from '@progress/kendo-angular-grid';
   selector: 'app-timesheet-dashboard',
   standalone: true,
   imports: [
-    GridModule,
-    TimesheetGridComponent
-  ],
+    GridModule, TimesheetGridComponent],
   templateUrl: './timesheet-dashboard.component.html',
   styleUrl: './timesheet-dashboard.component.css'
 })

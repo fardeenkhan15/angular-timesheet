@@ -4,7 +4,7 @@ import { TimesheetDashboardComponent } from './Timesheets/timesheet-dashboard/ti
 export const routes: Routes = [
 
   {
-    path:"dashboard",
+    path:"",
     component: TimesheetDashboardComponent
   }
 
