@@ -23,21 +23,21 @@
       <form [formGroup]="manualTimesheetForm" (ngSubmit)="onManualTimesheetSubmit()">
         <div class="container">
           <div class="row mb-3">
-            <div class="col-6">
+            <div class="col-12">
               <div class="">
                 <label for="timesheetName" class="form-label">Timesheet Name *</label>
-                <input type="text" class="form-control" id="timesheetName" formControlName="timesheet_name" placeholder="Enter Timesheet Name" required>
+                <input type="text" class="form-control" id="timesheetName" formControlName="timesheet_name" placeholder="Enter Timesheet Name" required><br>
               </div>
             </div>
-            <div class="col-6">
+            <div class="col-12">
               <div class="">
                 <label for="timesheetDate" class="form-label">Timesheet Date *</label>
-                <input type="date" class="form-control" id="timesheetDate" formControlName="timesheet_date" required>
+                <input type="date" class="form-control" id="timesheetDate" formControlName="timesheet_date" required><br>
               </div>
             </div>
           </div>
           <div class="row">
-            <div class="d-flex flex-row-reverse">
+            <div class="d-flex">
               <button type="submit" [disabled]="manualTimesheetForm.invalid" class="btn btn-primary">Submit</button>
             </div>
           </div>
@@ -55,29 +55,27 @@
       <form [formGroup]="uploadCsvForm" (ngSubmit)="onUploadCSVSubmit()">
         <div class="container">
           <div class="row mb-3">
-            <div class="col-6">
+            <div class="col-12">
               <div class="">
                 <label for="timesheetName" class="form-label">Timesheet Name *</label>
-                <input type="text" class="form-control" id="timesheetName" formControlName="timesheet_name" placeholder="Enter Timesheet Name" required>
+                <input type="text" class="form-control" id="timesheetName" formControlName="timesheet_name" placeholder="Enter Timesheet Name" required><br>
               </div>
             </div>
-            <div class="col-6">
+            <div class="col-12">
               <div class="">
                 <label for="timesheetDate" class="form-label">Timesheet Date *</label>
-                <input type="date" class="form-control" id="timesheetDate" formControlName="timesheet_date" required>
+                <input type="date" class="form-control" id="timesheetDate" formControlName="timesheet_date" required><br>
               </div>
             </div>
-          </div>
-          <div class="row mb-3">
             <div class="col-12">
               <div class="">
                 <label for="fileUpload" class="form-label">Choose File *</label>
-                <input type="file" class="form-control" id="fileUpload" formControlName="file_upload">
+                <input type="file" class="form-control" id="fileUpload" formControlName="file_upload"><br>
               </div>
-            </div>
+          </div>           
           </div>
           <div class="row">
-            <div class="d-flex flex-row-reverse">
+            <div class="d-flex">
               <button type="submit" [disabled]="uploadCsvForm.invalid" class="btn btn-primary">Submit</button>
             </div>
           </div>
@@ -128,8 +126,10 @@
   format="{0:dd-MM-yyyy }"
     ></kendo-grid-column>
 
-  <kendo-grid-column
-  title="Actions"
-  ></kendo-grid-column>
-
-</kendo-grid>
+    <kendo-grid-column title="Actions">
+      <ng-template kendoGridCellTemplate let-dataItem>
+        <button class="btn btn-dark btn-sm btn-smaller " (click)="viewTimesheet(dataItem.id)" title="View Timesheet">
+          <i class="bi bi-eye"></i> 
+        </button>
+      </ng-template>
+    </kendo-grid-column>

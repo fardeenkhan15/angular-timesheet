@@ -10,6 +10,8 @@ import { and } from '@progress/kendo-angular-grid/utils';
 import { filter } from '@progress/kendo-data-query/dist/npm/transducers';
 import { FormGroup, ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { NgClass } from '@angular/common';
+import { ViewChild, NgZone, AfterViewInit } from "@angular/core";
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-timesheet-grid',
@@ -48,6 +50,7 @@ export class TimesheetGridComponent {
   skip = 0;
 
   total = 0;
+  ngZone: any;
 
   ngOnInit(){
     this.loadItem();
@@ -76,7 +79,6 @@ export class TimesheetGridComponent {
     this.sort = sort;
     this.sortItem();
   }
-
   sortItem(){
     this.grid = {
       data: orderBy(this.timesheets,this.sort),
@@ -160,5 +162,6 @@ export class TimesheetGridComponent {
     // Handle timesheet detail view
     console.log(`View timesheet with ID: ${timesheetId}`);
   }
+  
 }
 
