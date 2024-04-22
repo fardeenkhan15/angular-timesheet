@@ -1,7 +1,7 @@
 <div class="container">
   <div class="border border-2 p-3 my-4 bg-light">
     <div class="d-flex justify-content-between align-items-center">
-      <h5></h5>
+      <h5>Create/Upload Timesheet</h5>
       <div class="d-flex">
         <button class="btn btn-success me-3" (click)="toggleManualCreation()">
           <i class="bi bi-plus-circle me-2"></i> Create Timesheet
@@ -46,7 +46,8 @@
   title="Date"
   [filterable]="true"
   filter="date"
-  ></kendo-grid-column>
+  format="{0:dd-MM-yyyy }"
+    ></kendo-grid-column>
 
   <kendo-grid-column
   title="Actions"
