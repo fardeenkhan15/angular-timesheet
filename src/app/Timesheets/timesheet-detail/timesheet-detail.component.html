@@ -1,1 +1,138 @@
-<p>timesheet-detail works!</p>
+<div class="container">
+  <div class="col-lg-12" [style.height]="csvFlag === 1 ? '65px' : '50px'">
+    <div class="d-flex justify-content-between" [class.py-3]="csvFlag === 1" [class.py-4]="csvFlag === 0">
+      <h5 class="text-dark-emphasis">{{ csvFlag === 1 ? 'Uploaded From File' : 'Manual Timesheet' }}: {{ timesheetName }}</h5>
+      <div class="text-end" *ngIf="csvFlag === 0">
+        <button class="btn btn-success" type="button" (click)="toggleAddRowForm()">
+          <i class="bi bi-plus-circle"></i> Add Row
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="" *ngIf="csvFlag === 0">
+    <div class="col-lg-12 py-3">
+      <div *ngIf="showAddRowForm">
+        <br>
+        <div class="card card-body">
+          <form [formGroup]="addRowForm" (ngSubmit)="onAddRow()">
+            <div class="container">
+              <div class="row m-0">
+                <div class="col-4">
+                  <div class="mb-3">
+                    <label for="worker_name" class="form-label">Worker Name *</label>
+                    <input type="text" class="form-control rounded-0" id="worker_name" formControlName="worker_name" placeholder="Enter Worker Name">
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="mb-3">
+                    <label for="worker_id" class="form-label">Worker ID *</label>
+                    <input type="text" class="form-control" id="worker_id" formControlName="worker_id" placeholder="Enter Worker ID">
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="mb-3">
+                    <label for="date" class="form-label">Date *</label>
+                    <input type="date" class="form-control" id="date" formControlName="timesheet_detail_date" placeholder="Enter Date">
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="mb-3">
+                    <label for="organisation" class="form-label">Organisation *</label>
+                    <input type="text" class="form-control" id="organisation" formControlName="organisation" placeholder="Enter Organisation">
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="mb-3">
+                    <label for="hourly_pay" class="form-label">Hourly Pay *</label>
+                    <input type="text" class="form-control" id="hourly_pay" formControlName="hourly_pay" placeholder="Enter Hourly Pay">
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="mb-3">
+                    <label for="hours_worked" class="form-label">Hours Worked *</label>
+                    <input type="text" class="form-control" id="hours_worked" formControlName="hours_worked" placeholder="Enter Hours Worked">
+                  </div>
+                </div>
+              </div>
+              <div class="mb-3 text-end">
+                <button type="submit" class="btn btn-primary" [disabled]="addRowForm.invalid">Submit</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <kendo-grid
+  [data]="grid"
+  [pageSize]="pageSize"
+  [skip]="skip"
+  [pageable]="true"
+  (pageChange)="pageChange($event)"
+  [groupable]="true"
+  [group]="groups"
+  [loading]="gridloading"
+  (groupChange)="groupChange($event)"
+  [filterable]="true"
+  [filter]="filter"
+  (filterChange)="filterChange($event)"
+  [sortable]="true"
+  [sort]="sort"
+  (sortChange)="sortChange($event)"
+  >
+  
+    <kendo-grid-column
+    title="S.No"
+    >
+    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+        {{ rowIndex + 1 }}
+      </ng-template>
+    </kendo-grid-column>
+  
+    <kendo-grid-column
+    field="worker_name"
+    title="Worker Name"
+    ></kendo-grid-column>
+  
+    <kendo-grid-column
+    field="worker_id"
+    title="Worker Id"
+    ></kendo-grid-column>
+  
+    <kendo-grid-column
+    field="organisation"
+    title="organisation"
+    ></kendo-grid-column>
+  
+    <kendo-grid-column
+    field="hourly_pay"
+    title="Hourly Pay"
+    ></kendo-grid-column>
+  
+    <kendo-grid-column
+    field="hours_worked"
+    title="Hours Worked"
+    ></kendo-grid-column>
+  
+    <kendo-grid-column
+    field="draft_status"
+    title="Status"
+    ></kendo-grid-column>
+  
+    <kendo-grid-column
+    title="Actions"
+    ></kendo-grid-column>
+  
+  </kendo-grid>
+      <!-- <tbody>
+        <tr *ngFor="let timesheetDetail of timesheetDetails; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ timesheetDetail.worker_name }}</td>
+          <td>{{ timesheetDetail.worker_id }}</td>
+          <td>{{ timesheetDetail.organisation }}</td>
+          <td class="text-end">£{{ timesheetDetail.hourly_pay }}</td>
+          <td class="text-end">{{ timesheetDetail.hours_worked }}</td>
+          <td>{{ timesheetDetail.draft_status ? 'Draft' : 'Saved' }}</td>
+          <td> -->
+            <!-- <ng-container *ngIf="timesheetDetail.draft_status; else invoicing"> -->
+              <!-- <button class="btn btn-dark text-white-emphasis btn-smaller" (click)="onEditTimesheet(timesheetDetail.id)" title -->
