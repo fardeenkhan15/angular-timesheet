@@ -26,30 +26,30 @@ export class TimesheetDashboardComponent {
   dataService = inject(DataServiceRouteService)
 
   private fb = inject(FormBuilder);
- 
+
   constructor() {
     this.manualTimesheetForm = this.fb.group({
       timesheet_name: ['', Validators.required],
       timesheet_date: ['', Validators.required]
     });
- 
+
     this.uploadCsvForm = this.fb.group({
       timesheet_name: ['', Validators.required],
       timesheet_date: ['', Validators.required],
       file_upload: [null, Validators.required]
     });
   }
- 
+
   toggleManualCreation() {
     this.showManualCreation = !this.showManualCreation;
     this.showUploadCSV = false;
   }
- 
+
   toggleUploadCSV() {
     this.showUploadCSV = !this.showUploadCSV;
     this.showManualCreation = false;
   }
- 
+
   onManualTimesheetSubmit() {
     if (this.manualTimesheetForm.valid) {
       this.manualTimesheetForm.value['created_by'] = "0";
@@ -59,17 +59,17 @@ export class TimesheetDashboardComponent {
       })
     }
   }
- 
+
   onUploadCSVSubmit() {
     if (this.uploadCsvForm.valid) {
       // Handle CSV upload submission
-      this.manualTimesheetForm.value['created_by'] = "1";
-      this.manualTimesheetForm.value['upload_type_csv'] = "0";
+      this.uploadCsvForm.value['created_by'] = "1";
+      this.uploadCsvForm.value['upload_type_csv'] = "0";
       console.log(this.uploadCsvForm.value);
-      
+
     }
   }
- 
+
   viewTimesheet(timesheetId: number) {
     // Handle timesheet detail view
     console.log(`View timesheet with ID: ${timesheetId}`);
