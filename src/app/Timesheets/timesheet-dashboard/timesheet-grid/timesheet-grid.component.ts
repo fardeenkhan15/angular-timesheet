@@ -116,48 +116,6 @@ export class TimesheetGridComponent {
     })
 
   }
-  private fb = inject(FormBuilder);
- 
-  constructor() {
-    this.manualTimesheetForm = this.fb.group({
-      timesheet_name: ['', Validators.required],
-      timesheet_date: ['', Validators.required]
-    });
- 
-    this.uploadCsvForm = this.fb.group({
-      timesheet_name: ['', Validators.required],
-      timesheet_date: ['', Validators.required],
-      file_upload: [null, Validators.required]
-    });
-  }
- 
-  toggleManualCreation() {
-    this.showManualCreation = !this.showManualCreation;
-    this.showUploadCSV = false;
-  }
- 
-  toggleUploadCSV() {
-    this.showUploadCSV = !this.showUploadCSV;
-    this.showManualCreation = false;
-  }
- 
-  onManualTimesheetSubmit() {
-    if (this.manualTimesheetForm.valid) {
-      // Handle manual timesheet submission
-      console.log(this.manualTimesheetForm.value);
-    }
-  }
- 
-  onUploadCSVSubmit() {
-    if (this.uploadCsvForm.valid) {
-      // Handle CSV upload submission
-      console.log(this.uploadCsvForm.value);
-    }
-  }
- 
-  viewTimesheet(timesheetId: number) {
-    // Handle timesheet detail view
-    console.log(`View timesheet with ID: ${timesheetId}`);
-  }
+  
 }
 

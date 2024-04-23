@@ -55,7 +55,7 @@ export class TimesheetDashboardComponent {
       this.manualTimesheetForm.value['created_by'] = "0";
       this.manualTimesheetForm.value['upload_type_csv'] = "0";
       this.dataService.storeManualTimesheet(this.manualTimesheetForm.value).subscribe(result => {
-        this.router.navigateByUrl("/")
+        this.router.navigateByUrl("timesheet/")
       })
     }
   }
