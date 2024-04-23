@@ -12,6 +12,7 @@ import { FormGroup, ReactiveFormsModule, FormBuilder, Validators } from '@angula
 import { NgClass } from '@angular/common';
 import { ViewChild, NgZone, AfterViewInit } from "@angular/core";
 import { take } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-timesheet-grid',
@@ -23,8 +24,6 @@ import { take } from 'rxjs';
   styleUrl: './timesheet-grid.component.css'
 })
 export class TimesheetGridComponent {
-  manualTimesheetForm: FormGroup;
-  uploadCsvForm: FormGroup;
   showManualCreation = false;
   showUploadCSV = false;
   groups:GroupDescriptor[] = [];
@@ -32,6 +31,8 @@ export class TimesheetGridComponent {
   gridData:any = {data:[], total: 0};
   user:string = "";
   gridloading = false;
+  router = inject(Router);
+
 
   grid: any|GridDataResult = {
     data: [],
@@ -119,6 +120,10 @@ export class TimesheetGridComponent {
     })
 
   }
-  
+
+  navigateToTimehsheetDetail(id:number){
+    this.router.navigateByUrl('timesheet/'+id);
+  }
+
 }
 

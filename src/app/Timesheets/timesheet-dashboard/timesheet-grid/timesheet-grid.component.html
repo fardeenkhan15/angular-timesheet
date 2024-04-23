@@ -45,8 +45,8 @@
 
     <kendo-grid-column title="Actions" [headerStyle]="{'font-weight': 'bold'}">
       <ng-template kendoGridCellTemplate let-dataItem>
-        <button class="btn btn-dark btn-sm btn-smaller"  title="View Timesheet">
-          <i class="bi bi-eye"></i> 
+        <button class="btn btn-dark btn-sm btn-smaller"  title="View Timesheet" (click)="navigateToTimehsheetDetail(dataItem.id)">
+          <i class="bi bi-eye"></i>
         </button>
       </ng-template>
     </kendo-grid-column>
