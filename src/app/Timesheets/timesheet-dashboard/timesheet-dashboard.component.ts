@@ -24,6 +24,7 @@ export class TimesheetDashboardComponent {
   timesheets:any[] = []
   user:string = ""
   dataService = inject(DataServiceRouteService)
+  timesheetId:any;
 
   private fb = inject(FormBuilder);
 
@@ -55,7 +56,9 @@ export class TimesheetDashboardComponent {
       this.manualTimesheetForm.value['created_by'] = "0";
       this.manualTimesheetForm.value['upload_type_csv'] = "0";
       this.dataService.storeManualTimesheet(this.manualTimesheetForm.value).subscribe(result => {
-        this.router.navigateByUrl("timesheet/")
+        this.timesheetId = result.timesheet_id;
+        console.log(result.timesheet_id)
+        this.router.navigateByUrl("timesheet/"+this.timesheetId);
       })
     }
   }

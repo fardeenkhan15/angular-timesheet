@@ -17,7 +17,7 @@ export class DataServiceRouteService {
   }
 
   storeManualTimesheet(timesheet: timesheet){
-    return this.httpClient.post<timesheet>(this.apiUrl+"/timesheets", timesheet);
+    return this.httpClient.post<{timesheet_id:any}>(this.apiUrl+"/timesheets", timesheet);
   }
 
   getTimesheetById(id: number) {
@@ -33,7 +33,7 @@ export class DataServiceRouteService {
   }
 
   storeCsvTimesheet(){
-    
+
   }
 
 }
