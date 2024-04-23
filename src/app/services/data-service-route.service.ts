@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { timesheet } from '../models/timesheet';
 import { timesheetDetail } from '../models/timesheet-detail';
 
@@ -16,16 +16,16 @@ export class DataServiceRouteService {
     return this.httpClient.get<timesheet>(this.apiUrl+"/dashboard?skip="+skip+"&take="+take);
   }
 
-  storeManualTimesheet(timesheet: any){
-    return this.httpClient.post<any>(this.apiUrl+"/timesheets", timesheet);
+  storeManualTimesheet(timesheet: timesheet){
+    return this.httpClient.post<timesheet>(this.apiUrl+"/timesheets", timesheet);
   }
 
   getTimesheetById(id: number) {
     return this.httpClient.get<timesheetDetail>(this.apiUrl+"/dashboard/"+id);
   }
 
-  addManualRow(){
-
+  addManualRow(timesheetDetail: timesheetDetail){
+    return this.httpClient.post<timesheetDetail>(this.apiUrl+"/timesheet", timesheetDetail)
   }
 
   fetchDataTimesheetDetails(){

@@ -112,9 +112,6 @@ export class TimesheetDetailComponent {
     })
 
   }
-  addRow(){
-      
-  }
   timesheetName: string = '';
   csvFlag: number = 0;
 
@@ -144,7 +141,10 @@ export class TimesheetDetailComponent {
 
   onAddRow() {
     if (this.addRowForm.valid) {
-      this.dataService
+      console.log("row added", this.addRowForm.value)
+      this.dataService.addManualRow(this.addRowForm.value).subscribe(result => {
+
+      })
     }
   }
 
