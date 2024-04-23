@@ -107,6 +107,7 @@
 
   <kendo-grid-column
   title="S.No"
+  [headerStyle]="{'font-weight': 'bold'}"
   >
     <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
       {{ rowIndex + 1 }}
@@ -115,18 +116,20 @@
 
   <kendo-grid-column
   field="timesheet_name"
+  [headerStyle]="{'font-weight': 'bold'}"
   title="Name"
   ></kendo-grid-column>
 
   <kendo-grid-column
   field="timesheet_date"
+  [headerStyle]="{'font-weight': 'bold'}"
   title="Date"
   [filterable]="true"
   filter="date"
   format="{0:dd-MM-yyyy }"
     ></kendo-grid-column>
 
-    <kendo-grid-column title="Actions">
+    <kendo-grid-column title="Actions" [headerStyle]="{'font-weight': 'bold'}">
       <ng-template kendoGridCellTemplate let-dataItem>
         <button class="btn btn-dark btn-sm btn-smaller " (click)="viewTimesheet(dataItem.id)" title="View Timesheet">
           <i class="bi bi-eye"></i> 
