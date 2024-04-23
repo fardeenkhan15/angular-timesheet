@@ -11,7 +11,8 @@ import { filter } from '@progress/kendo-data-query/dist/npm/transducers';
 import { FormGroup, ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { NgClass } from '@angular/common';
 import { Router, RouterOutlet } from '@angular/router';
-
+import { ViewChild, NgZone, AfterViewInit } from "@angular/core";
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-timesheet-grid',
@@ -46,6 +47,7 @@ export class TimesheetGridComponent {
   skip = 0;
 
   total = 0;
+  ngZone: any;
 
   ngOnInit(){
     this.loadItem();
@@ -74,7 +76,6 @@ export class TimesheetGridComponent {
     this.sort = sort;
     this.sortItem();
   }
-
   sortItem(){
     this.grid = {
       data: orderBy(this.timesheets,this.sort),
@@ -114,6 +115,49 @@ export class TimesheetGridComponent {
       this.gridloading = false;
     })
 
+  }
+  private fb = inject(FormBuilder);
+ 
+  constructor() {
+    this.manualTimesheetForm = this.fb.group({
+      timesheet_name: ['', Validators.required],
+      timesheet_date: ['', Validators.required]
+    });
+ 
+    this.uploadCsvForm = this.fb.group({
+      timesheet_name: ['', Validators.required],
+      timesheet_date: ['', Validators.required],
+      file_upload: [null, Validators.required]
+    });
+  }
+ 
+  toggleManualCreation() {
+    this.showManualCreation = !this.showManualCreation;
+    this.showUploadCSV = false;
+  }
+ 
+  toggleUploadCSV() {
+    this.showUploadCSV = !this.showUploadCSV;
+    this.showManualCreation = false;
+  }
+ 
+  onManualTimesheetSubmit() {
+    if (this.manualTimesheetForm.valid) {
+      // Handle manual timesheet submission
+      console.log(this.manualTimesheetForm.value);
+    }
+  }
+ 
+  onUploadCSVSubmit() {
+    if (this.uploadCsvForm.valid) {
+      // Handle CSV upload submission
+      console.log(this.uploadCsvForm.value);
+    }
+  }
+ 
+  viewTimesheet(timesheetId: number) {
+    // Handle timesheet detail view
+    console.log(`View timesheet with ID: ${timesheetId}`);
   }
 }
 
