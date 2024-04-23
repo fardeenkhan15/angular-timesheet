@@ -10,7 +10,6 @@ import { and } from '@progress/kendo-angular-grid/utils';
 import { filter } from '@progress/kendo-data-query/dist/npm/transducers';
 import { FormGroup, ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { NgClass } from '@angular/common';
-import { Router, RouterOutlet } from '@angular/router';
 import { ViewChild, NgZone, AfterViewInit } from "@angular/core";
 import { take } from 'rxjs';
 
@@ -18,12 +17,16 @@ import { take } from 'rxjs';
   selector: 'app-timesheet-grid',
   standalone: true,
   imports: [
-    GridModule, ReactiveFormsModule, NgClass, RouterOutlet
+    GridModule, ReactiveFormsModule, NgClass
   ],
   templateUrl: './timesheet-grid.component.html',
   styleUrl: './timesheet-grid.component.css'
 })
 export class TimesheetGridComponent {
+  manualTimesheetForm: FormGroup;
+  uploadCsvForm: FormGroup;
+  showManualCreation = false;
+  showUploadCSV = false;
   groups:GroupDescriptor[] = [];
   timesheets:any[] = []
   gridData:any = {data:[], total: 0};
