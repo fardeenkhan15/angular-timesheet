@@ -73,9 +73,4 @@ export class TimesheetDashboardComponent {
     }
   }
 
-  viewTimesheet(timesheetId: number) {
-    // Handle timesheet detail view
-    console.log(`View timesheet with ID: ${timesheetId}`);
-  }
-
 }

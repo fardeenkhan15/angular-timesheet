@@ -20,12 +20,12 @@ export class DataServiceRouteService {
     return this.httpClient.post<{timesheet_id:any}>(this.apiUrl+"/timesheets", timesheet);
   }
 
-  getTimesheetById(id: number) {
+  getTimesheetById(id: any) {
     return this.httpClient.get<timesheetDetail>(this.apiUrl+"/dashboard/"+id);
   }
 
-  addManualRow(timesheetDetail: timesheetDetail){
-    return this.httpClient.post<timesheetDetail>(this.apiUrl+"/timesheet", timesheetDetail)
+  addManualRow(id:number ,timesheetDetail: timesheetDetail){
+    return this.httpClient.post<timesheetDetail>(this.apiUrl+"/dashboard/"+id, timesheetDetail)
   }
 
   fetchDataTimesheetDetails(){
