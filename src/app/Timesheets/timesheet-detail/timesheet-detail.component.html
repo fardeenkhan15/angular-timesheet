@@ -120,19 +120,11 @@
     ></kendo-grid-column>
   
     <kendo-grid-column
-    title="Actions"
-    ></kendo-grid-column>
-  
+    title="Actions" [headerStyle]="{'font-weight': 'bold'}">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <button class="btn btn-dark btn-sm btn-smaller"  title="edit Timesheet" >
+        <i class="bi bi-pen"></i>
+      </button>
+    </ng-template>
+    </kendo-grid-column>
   </kendo-grid>
-      <!-- <tbody>
-        <tr *ngFor="let timesheetDetail of timesheetDetails; let i = index">
-          <td>{{ i + 1 }}</td>
-          <td>{{ timesheetDetail.worker_name }}</td>
-          <td>{{ timesheetDetail.worker_id }}</td>
-          <td>{{ timesheetDetail.organisation }}</td>
-          <td class="text-end">£{{ timesheetDetail.hourly_pay }}</td>
-          <td class="text-end">{{ timesheetDetail.hours_worked }}</td>
-          <td>{{ timesheetDetail.draft_status ? 'Draft' : 'Saved' }}</td>
-          <td> -->
-            <!-- <ng-container *ngIf="timesheetDetail.draft_status; else invoicing"> -->
-              <!-- <button class="btn btn-dark text-white-emphasis btn-smaller" (click)="onEditTimesheet(timesheetDetail.id)" title -->

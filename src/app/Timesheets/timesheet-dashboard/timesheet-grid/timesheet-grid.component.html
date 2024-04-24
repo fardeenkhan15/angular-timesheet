@@ -43,7 +43,7 @@
   format="{0:dd-MM-yyyy }"
     ></kendo-grid-column>
 
-    <kendo-grid-column title="Actions" [headerStyle]="{'font-weight': 'bold'}">
+    <kendo-grid-column title="Actions" >
       <ng-template kendoGridCellTemplate let-dataItem>
         <button class="btn btn-dark btn-sm btn-smaller"  title="View Timesheet" (click)="navigateToTimehsheetDetail(dataItem.id)">
           <i class="bi bi-eye"></i>
