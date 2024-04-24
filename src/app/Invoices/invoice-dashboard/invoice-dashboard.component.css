@@ -10,7 +10,7 @@
     outline: none;
     display: inline-block;
     text-align: center;
-    align-items: center;
+    vertical-align : middle;
 }
 
 .grid-container ::ng-deep kendo-grid-group-panel,

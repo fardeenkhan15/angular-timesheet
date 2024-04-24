@@ -30,4 +30,12 @@ export class InvoiceService {
     return this.httpClient.get<any>(removeInvoice);
   }
   
+
+  generatePdf(id: any){
+    const generatePdf = `http://127.0.0.1:8000/api/invoice/generate-pdf?id=${id}`;
+
+    return this.httpClient.get<any>(generatePdf);
+  
+  }
+  
 }

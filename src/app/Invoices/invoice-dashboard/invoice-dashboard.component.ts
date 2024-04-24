@@ -184,7 +184,7 @@ export class InvoiceDashboardComponent implements OnInit {
     }
   }
 
-
+  //Delete Invoice and PDFs
   public removeHandler(event: RemoveEvent){
     this.isLoading = true;
     this.invoiceService.deleteInvoice(event.dataItem.id).subscribe((result)=>{
@@ -208,6 +208,17 @@ export class InvoiceDashboardComponent implements OnInit {
     this.formGroup = undefined;
   }
 
+
+  generatePdf(id: any){
+
+    this.isLoading = true;
+
+    this.invoiceService.generatePdf(id).subscribe((result)=>{
+      console.log(result.message);
+      this.loadInvoices(this.skip, this.take);
+      this.isLoading = false;
+    })
+  }
 
   
 
