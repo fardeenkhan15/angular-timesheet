@@ -1,0 +1,15 @@
+<div class="container">
+    <div class="border border-2 p-3 my-4 bg-light">
+      <div class="d-flex justify-content-between align-items-center">
+        <h5>Invoices</h5>
+        <div class="d-flex">
+          <button class="btn btn-success me-3" (click)="toggleGenerateInvoice()">
+            <i class="bi bi-download"></i> Generate Report
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center text-align-center" >
+        <app-invoice-dashboard></app-invoice-dashboard>
+    </div>
+</div>
