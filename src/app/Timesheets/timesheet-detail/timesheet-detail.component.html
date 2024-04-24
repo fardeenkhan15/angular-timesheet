@@ -79,6 +79,11 @@
   [sortable]="true"
   [sort]="sort"
   (sortChange)="sortChange($event)"
+  (edit)="editHandler($event)"
+  (cancel)="cancelHandler($event)"
+  (save)="saveHandler($event)"
+  (remove)="removeHandler($event)"
+
   >
   
     <kendo-grid-column
@@ -119,12 +124,30 @@
     title="Status"
     ></kendo-grid-column>
   
-    <kendo-grid-column
+    <!-- <kendo-grid-column
     title="Actions" [headerStyle]="{'font-weight': 'bold'}">
     <ng-template kendoGridCellTemplate let-dataItem>
       <button class="btn btn-dark btn-sm btn-smaller"  title="edit Timesheet" >
         <i class="bi bi-pen"></i>
       </button>
     </ng-template>
-    </kendo-grid-column>
+    </kendo-grid-column> -->
+    <kendo-grid-command-column title="command" [width]="220">
+      <ng-template kendoGridCellTemplate let-isNew="isNew">
+        <button kendoGridEditCommand type="button" [primary]="true">
+          Edit
+        </button>
+        <button kendoGridRemoveCommand type="button">Remove</button>
+        <button
+          kendoGridSaveCommand
+          type="button"
+          [disabled]="myForm.invalid || myForm.pristine"
+        >
+          {{ isNew ? "Add" : "Update" }}
+        </button>
+        <button kendoGridCancelCommand type="button">
+          {{ isNew ? "Discard changes" : "Cancel" }}
+        </button>
+      </ng-template>
+    </kendo-grid-command-column>
   </kendo-grid>
