@@ -3,7 +3,7 @@ import { GridComponent, GridModule, PageChangeEvent, GridDataResult, CancelEvent
 import { CompositeFilterDescriptor, GroupDescriptor, GroupResult, SortDescriptor, filterBy, groupBy, orderBy, process, State } from '@progress/kendo-data-query';
 import { DataServiceRouteService } from '../../services/data-service-route.service';
 import { filter } from 'rxjs';
-import { FormBuilder, FormGroup, FormsModule, NgModel, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, NgModel, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { timesheetDetail } from '../../models/timesheet-detail';
 import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
@@ -26,6 +26,8 @@ export class TimesheetDetailComponent {
   gridloading = false;
   timesheetId: number = 0;
   router = inject(Router);
+  public formGroup ?: FormGroup;
+  private editedRowIndex ?: number;
 
   grid: any | GridDataResult = {
     data: [],
@@ -162,7 +164,61 @@ export class TimesheetDetailComponent {
         this.addRowForm.reset();
     }
   }
-  
 
+  public editHandler(args: EditEvent){
+
+    // Starts an Inline Edit Form
+    const { dataItem } = args;
+    this.closeEditor(args.sender);
+
+    this.formGroup = new FormGroup({
+      id: new FormControl(dataItem.id, Validators.required),
+      timesheet_id: new FormControl(dataItem.timesheet_id, Validators.required),
+      worker_name: new FormControl(dataItem.worker_name, Validators.required),
+      worker_id: new FormControl(dataItem.worker_id, Validators.required),
+      organisation: new FormControl(dataItem.organisation, Validators.required),
+      hourly_pay: new FormControl(dataItem.hourly_pay, Validators.required),
+      hours_worked: new FormControl(dataItem.hours_worked, Validators.required),
+    })
+      
+    this.editedRowIndex = args.rowIndex;
+    args.sender.editRow(args.rowIndex, this.formGroup);
+  }
+
+  public saveHandler(args: SaveEvent){
+
+    // console.log(args, args.dataItem.id );
+    if(args.isNew === false){
+      this.dataService
+          .editTimesheet(args.dataItem.timesheet_id,args.dataItem.id, args.dataItem)
+          .subscribe((result)=>{
+            console.log(result);
+          })
+    }
+  }
+
+  //Delete Invoice and PDFs
+  // public removeHandler(event: RemoveEvent){
+  //   this.isLoading = true;
+  //   this.dataService.deleteInvoice(event.dataItem.id).subscribe((result)=>{
+  //     console.log(result.message);
+  //     this.loadInvoices(this.skip, this.take);
+  //     this.isLoading = false;
+  //   });
+  // }
+
+
+  public cancelHandler(args: CancelEvent): void {
+    this.closeEditor(args.sender, args.rowIndex);
+  }
+
+
+  private closeEditor(grid: GridComponent, rowIndex = this.editedRowIndex) {
+    // close the editor
+    grid.closeRow(rowIndex);
+    // reset the helpers
+    this.editedRowIndex = undefined;
+    this.formGroup = undefined;
+  }
 
 }

@@ -82,7 +82,7 @@
   (edit)="editHandler($event)"
   (cancel)="cancelHandler($event)"
   (save)="saveHandler($event)"
-  (remove)="removeHandler($event)"
+ 
 
   >
   
@@ -141,7 +141,7 @@
         <button
           kendoGridSaveCommand
           type="button"
-          [disabled]="myForm.invalid || myForm.pristine"
+          
         >
           {{ isNew ? "Add" : "Update" }}
         </button>

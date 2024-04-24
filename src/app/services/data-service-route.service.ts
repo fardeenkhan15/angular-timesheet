@@ -28,6 +28,10 @@ export class DataServiceRouteService {
     return this.httpClient.post<timesheetDetail>(this.apiUrl+"/dashboard/"+id, timesheetDetail)
   }
 
+  editTimesheet(timesheet_id:any, timesheet_detail_id:any, timesheet_detail: any[]){
+    return this.httpClient.put<timesheetDetail>(this.apiUrl+"/dashboard/"+timesheet_id+"/edittimesheet/"+timesheet_detail_id+"/update",timesheet_detail)
+  }
+
   fetchDataTimesheetDetails(){
 
   }
