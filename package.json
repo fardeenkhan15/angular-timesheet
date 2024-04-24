@@ -29,7 +29,7 @@
     "@progress/kendo-angular-icons": "15.4.0",
     "@progress/kendo-angular-inputs": "15.4.0",
     "@progress/kendo-angular-intl": "15.4.0",
-    "@progress/kendo-angular-l10n": "15.4.0",
+    "@progress/kendo-angular-l10n": "^15.4.0",
     "@progress/kendo-angular-label": "15.4.0",
     "@progress/kendo-angular-layout": "15.4.0",
     "@progress/kendo-angular-pdf-export": "15.4.0",
@@ -46,6 +46,7 @@
     "@progress/kendo-theme-default": "^7.2.0",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
+    "ngx-file-drop": "^16.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"

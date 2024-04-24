@@ -20,7 +20,7 @@
       <button type="button" class="btn-close" (click)="toggleManualCreation()" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-      <form [formGroup]="manualTimesheetForm" (ngSubmit)="onManualTimesheetSubmit()">
+      <form [formGroup]="manualTimesheetForm" (ngSubmit)="onManualTimesheetSubmit()" >
         <div class="container">
           <div class="row mb-3">
             <div class="col-12">
@@ -52,7 +52,8 @@
       <button type="button" class="btn-close" (click)="toggleUploadCSV()" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-      <form [formGroup]="uploadCsvForm" (ngSubmit)="onUploadCSVSubmit()">
+      <form [formGroup]="uploadCsvForm" (ngSubmit)="onUploadCSVSubmit()" enctype="multipart/form-data">
+        
         <div class="container">
           <div class="row mb-3">
             <div class="col-12">
@@ -70,9 +71,9 @@
             <div class="col-12">
               <div class="">
                 <label for="fileUpload" class="form-label">Choose File *</label>
-                <input type="file" class="form-control" id="fileUpload" formControlName="file_upload"><br>
+                <input type="file" class="form-control" id="fileUpload" formControlName="file_upload" (change)="onFileDropped($event)" required>
               </div>
-          </div>           
+          </div>
           </div>
           <div class="row">
             <div class="d-flex">
