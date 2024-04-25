@@ -28,8 +28,12 @@ export class DataServiceRouteService {
     return this.httpClient.post<timesheetDetail>(this.apiUrl+"/dashboard/"+id, timesheetDetail)
   }
 
-  editTimesheet(timesheet_id:any, timesheet_detail_id:any, timesheet_detail: any[]){
-    return this.httpClient.put<timesheetDetail>(this.apiUrl+"/dashboard/"+timesheet_id+"/edittimesheet/"+timesheet_detail_id+"/update",timesheet_detail)
+  editTimesheet(timesheet_id:any, timesheet_detail_id:any, timesheet_detail: any){
+    console.log(timesheet_id,timesheet_detail_id,timesheet_detail)
+   
+    const baseUrl = this.apiUrl+"/dashboard/"+timesheet_id+"/edittimesheet/"+timesheet_detail_id+"/update";
+    console.log(baseUrl);
+    return this.httpClient.put<timesheetDetail>(baseUrl,timesheet_detail)
   }
 
   fetchDataTimesheetDetails(){

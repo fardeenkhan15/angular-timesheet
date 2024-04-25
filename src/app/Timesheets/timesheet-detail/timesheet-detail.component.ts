@@ -26,8 +26,9 @@ export class TimesheetDetailComponent {
   gridloading = false;
   timesheetId: number = 0;
   router = inject(Router);
-  public formGroup ?: FormGroup;
+  public formGroup : any;
   private editedRowIndex ?: number;
+  formData:FormData = new FormData();
 
   grid: any | GridDataResult = {
     data: [],
@@ -183,16 +184,29 @@ export class TimesheetDetailComponent {
       
     this.editedRowIndex = args.rowIndex;
     args.sender.editRow(args.rowIndex, this.formGroup);
+
   }
 
   public saveHandler(args: SaveEvent){
 
-    // console.log(args, args.dataItem.id );
     if(args.isNew === false){
+      const updatedData = {
+        id: this.formGroup.value.id,
+        timesheet_id: this.formGroup.value.timesheet_id,
+        worker_name: this.formGroup.value.worker_name,
+        worker_id: this.formGroup.value.worker_id,
+        organisation: this.formGroup.value.organisation,
+        hourly_pay: this.formGroup.value.hourly_pay,
+        hours_worked: this.formGroup.value.hours_worked,
+        timesheet_detail_date: this.formGroup.value.timesheet_detail_date
+      };
+      console.log("formData",updatedData);
       this.dataService
-          .editTimesheet(args.dataItem.timesheet_id,args.dataItem.id, args.dataItem)
+          .editTimesheet(args.dataItem.timesheet_id,args.dataItem.id,updatedData)
           .subscribe((result)=>{
             console.log(result);
+            this.closeEditor(args.sender);
+            this.loadItem();
           })
     }
   }
