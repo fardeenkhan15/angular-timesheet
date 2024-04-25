@@ -30,7 +30,7 @@ export class DataServiceRouteService {
 
   editTimesheet(timesheet_id:any, timesheet_detail_id:any, timesheet_detail: any){
     console.log(timesheet_id,timesheet_detail_id,timesheet_detail)
-   
+
     const baseUrl = this.apiUrl+"/dashboard/"+timesheet_id+"/edittimesheet/"+timesheet_detail_id+"/update";
     console.log(baseUrl);
     return this.httpClient.put<timesheetDetail>(baseUrl,timesheet_detail)
@@ -40,7 +40,7 @@ export class DataServiceRouteService {
 
    const  baseUrl = this.apiUrl+"/dashboard/"+timesheet_id+"/"+timesheet_detail_id+"/destroy";
     console.log("Delete:",baseUrl);
-    
+
     return this.httpClient.post<any>(baseUrl,{timesheet_detail_id:timesheet_detail_id});
   }
 

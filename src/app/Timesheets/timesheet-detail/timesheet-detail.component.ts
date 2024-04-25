@@ -113,7 +113,7 @@ export class TimesheetDetailComponent {
             this.user = result.user;
             this.total = result.total;
             console.log(this.timesheetDetail);
-    
+
             this.grid = {
               data: this.timesheetDetail,
               total: this.total,
@@ -128,7 +128,7 @@ export class TimesheetDetailComponent {
         }
       }
     )
-    
+
       // .subscribe((response) => {
       //   console.log(response);
       //   this.timesheetDetail = response.timesheet_detail;
@@ -239,7 +239,7 @@ export class TimesheetDetailComponent {
     // remove the current dataItem from the current data source
     // in this example, the dataItem is `editService`
     // this.dataService.remove(args.dataItem);
-    
+    console.log("delete");
     this.dataService.deleteTimesheet( event.dataItem.timesheet_id,event.dataItem.id).subscribe((result) => {
       console.log(result);
       this.loadItem()
