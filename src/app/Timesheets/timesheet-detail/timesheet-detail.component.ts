@@ -14,7 +14,7 @@ import { BrowserModule } from '@angular/platform-browser';
 @Component({
   selector: 'app-timesheet-detail',
   standalone: true,
-  imports: [GridModule, FormsModule, CommonModule, ReactiveFormsModule,InputsModule, BrowserAnimationsModule, BrowserModule],
+  imports: [GridModule, FormsModule, CommonModule, ReactiveFormsModule,InputsModule],
   templateUrl: './timesheet-detail.component.html',
   styleUrl: './timesheet-detail.component.css',
 })
