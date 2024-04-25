@@ -82,10 +82,10 @@
   (edit)="editHandler($event)"
   (cancel)="cancelHandler($event)"
   (save)="saveHandler($event)"
- 
+
 
   >
-  
+
     <kendo-grid-column
     title="S.No"
     [headerStyle]="{'font-weight': 'bold'}"
@@ -95,43 +95,43 @@
         {{ rowIndex + 1 }}
       </ng-template>
     </kendo-grid-column>
-  
+
     <kendo-grid-column
     field="worker_name"
     [headerStyle]="{'font-weight': 'bold'}"
     title="Worker Name"
     ></kendo-grid-column>
-  
+
     <kendo-grid-column
     field="worker_id"
     [headerStyle]="{'font-weight': 'bold'}"
     title="Worker Id"
     ></kendo-grid-column>
-  
+
     <kendo-grid-column
     field="organisation"
     [headerStyle]="{'font-weight': 'bold'}"
     title="Organisation"
     ></kendo-grid-column>
-  
+
     <kendo-grid-column
     field="hourly_pay"
     [headerStyle]="{'font-weight': 'bold'}"
     title="Hourly Pay"
     ></kendo-grid-column>
-  
+
     <kendo-grid-column
     field="hours_worked"
     [headerStyle]="{'font-weight': 'bold'}"
     title="Hours Worked"
     ></kendo-grid-column>
-  
+
     <kendo-grid-column
     field="draft_status"
     [headerStyle]="{'font-weight': 'bold'}"
     title="Status"
     ></kendo-grid-column>
-  
+
     <!-- <kendo-grid-column
     title="Actions" [headerStyle]="{'font-weight': 'bold'}">
     <ng-template kendoGridCellTemplate let-dataItem>
@@ -142,6 +142,7 @@
     </kendo-grid-column> -->
     <kendo-grid-command-column title="Actions"   [headerStyle]="{'font-weight': 'bold'}" [width]="220">
       <ng-template kendoGridCellTemplate let-isNew="isNew">
+        
         <button kendoGridEditCommand type="button" [primary]="true">
           Edit
         </button>
@@ -149,13 +150,14 @@
         <button
           kendoGridSaveCommand
           type="button"
-          
+
         >
           {{ isNew ? "Add" : "Update" }}
         </button>
         <button kendoGridCancelCommand type="button">
           {{ isNew ? "Discard changes" : "Cancel" }}
         </button>
+
       </ng-template>
     </kendo-grid-command-column>
   </kendo-grid>

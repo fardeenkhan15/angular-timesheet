@@ -19,7 +19,7 @@ export const routes: Routes = [
     component : InvoiceHomeComponent
   },
   {
-    path: "timesheet/check-csv/:id",
+    path: "timesheet/check-csv/:fileId/:timesheetId/:noOfRows",
     component : CheckCsvComponent
   }
 

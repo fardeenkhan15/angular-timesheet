@@ -139,7 +139,7 @@ export class TimesheetDetailComponent {
       hours_worked: ['', Validators.required],
     });
   }
-  
+
 
   toggleAddRowForm() {
     this.showAddRowForm = !this.showAddRowForm;
@@ -180,7 +180,7 @@ export class TimesheetDetailComponent {
       hourly_pay: new FormControl(dataItem.hourly_pay, Validators.required),
       hours_worked: new FormControl(dataItem.hours_worked, Validators.required),
     })
-      
+
     this.editedRowIndex = args.rowIndex;
     args.sender.editRow(args.rowIndex, this.formGroup);
   }

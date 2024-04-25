@@ -96,8 +96,7 @@ export class TimesheetDashboardComponent {
 
       this.dataService.storeCsvTimesheet(this.formData).subscribe((result:any) => {
         this.dataFromFile = result;
-        this.dataToSend.setData(this.dataFromFile);
-        this.router.navigateByUrl("timesheet/check-csv/"+result.file_id);
+        this.router.navigateByUrl("timesheet/check-csv/"+result.file_id+"/"+result.timesheet_id+"/"+result.no_of_rows);
       })
 
     }
