@@ -26,8 +26,9 @@ export class TimesheetDetailComponent {
   gridloading = false;
   timesheetId: number = 0;
   router = inject(Router);
-  public formGroup ?: FormGroup;
+  public formGroup : any;
   private editedRowIndex ?: number;
+  formData:FormData = new FormData();
 
   grid: any | GridDataResult = {
     data: [],
@@ -105,20 +106,43 @@ export class TimesheetDetailComponent {
     this.gridloading = true;
     this.dataService
       .getTimesheetById(this.timesheetId)
-      .subscribe((response) => {
-        console.log(response);
-        this.timesheetDetail = response.timesheet_detail;
-        this.user = response.user;
-        this.total = response.total;
-        console.log(this.timesheetDetail);
+      .subscribe({
+        next:(result)=>{
+          console.log(result);
+            this.timesheetDetail = result.timesheet_detail;
+            this.user = result.user;
+            this.total = result.total;
+            console.log(this.timesheetDetail);
+    
+            this.grid = {
+              data: this.timesheetDetail,
+              total: this.total,
+            };
+            console.log(this.grid);
+            this.gridloading = false;
+        },
+        error:(msg)=>{
+          console.log(msg);
+          this.gridloading = false;
+          this.router.navigate(['']);
+        }
+      }
+    )
+    
+      // .subscribe((response) => {
+      //   console.log(response);
+      //   this.timesheetDetail = response.timesheet_detail;
+      //   this.user = response.user;
+      //   this.total = response.total;
+      //   console.log(this.timesheetDetail);
 
-        this.grid = {
-          data: this.timesheetDetail,
-          total: this.total,
-        };
-        console.log(this.grid);
-        this.gridloading = false;
-      });
+      //   this.grid = {
+      //     data: this.timesheetDetail,
+      //     total: this.total,
+      //   };
+      //   console.log(this.grid);
+      //   this.gridloading = false;
+      // });
   }
   timesheetName: string = '';
   csvFlag: number = 0;
@@ -171,6 +195,8 @@ export class TimesheetDetailComponent {
     const { dataItem } = args;
     this.closeEditor(args.sender);
 
+    console.log(this.timesheetId  )
+
     this.formGroup = new FormGroup({
       id: new FormControl(dataItem.id, Validators.required),
       timesheet_id: new FormControl(dataItem.timesheet_id, Validators.required),
@@ -183,29 +209,42 @@ export class TimesheetDetailComponent {
 
     this.editedRowIndex = args.rowIndex;
     args.sender.editRow(args.rowIndex, this.formGroup);
+
   }
 
   public saveHandler(args: SaveEvent){
 
-    // console.log(args, args.dataItem.id );
     if(args.isNew === false){
+      const updatedData = {
+        id: this.formGroup.value.id,
+        timesheet_id: this.formGroup.value.timesheet_id,
+        worker_name: this.formGroup.value.worker_name,
+        worker_id: this.formGroup.value.worker_id,
+        organisation: this.formGroup.value.organisation,
+        hourly_pay: this.formGroup.value.hourly_pay,
+        hours_worked: this.formGroup.value.hours_worked,
+        timesheet_detail_date: this.formGroup.value.timesheet_detail_date
+      };
+      console.log("formData",updatedData);
       this.dataService
-          .editTimesheet(args.dataItem.timesheet_id,args.dataItem.id, args.dataItem)
+          .editTimesheet(args.dataItem.timesheet_id,args.dataItem.id,updatedData)
           .subscribe((result)=>{
             console.log(result);
+            this.closeEditor(args.sender);
+            this.loadItem();
           })
     }
   }
-
-  //Delete Invoice and PDFs
-  // public removeHandler(event: RemoveEvent){
-  //   this.isLoading = true;
-  //   this.dataService.deleteInvoice(event.dataItem.id).subscribe((result)=>{
-  //     console.log(result.message);
-  //     this.loadInvoices(this.skip, this.take);
-  //     this.isLoading = false;
-  //   });
-  // }
+  public removeHandler(event: RemoveEvent) {
+    // remove the current dataItem from the current data source
+    // in this example, the dataItem is `editService`
+    // this.dataService.remove(args.dataItem);
+    
+    this.dataService.deleteTimesheet( event.dataItem.timesheet_id,event.dataItem.id).subscribe((result) => {
+      console.log(result);
+      this.loadItem()
+    })
+  }
 
 
   public cancelHandler(args: CancelEvent): void {

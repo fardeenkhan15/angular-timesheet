@@ -28,12 +28,20 @@ export class DataServiceRouteService {
     return this.httpClient.post<timesheetDetail>(this.apiUrl+"/dashboard/"+id, timesheetDetail)
   }
 
-  editTimesheet(timesheet_id:any, timesheet_detail_id:any, timesheet_detail: any[]){
-    return this.httpClient.put<timesheetDetail>(this.apiUrl+"/dashboard/"+timesheet_id+"/edittimesheet/"+timesheet_detail_id+"/update",timesheet_detail)
+  editTimesheet(timesheet_id:any, timesheet_detail_id:any, timesheet_detail: any){
+    console.log(timesheet_id,timesheet_detail_id,timesheet_detail)
+   
+    const baseUrl = this.apiUrl+"/dashboard/"+timesheet_id+"/edittimesheet/"+timesheet_detail_id+"/update";
+    console.log(baseUrl);
+    return this.httpClient.put<timesheetDetail>(baseUrl,timesheet_detail)
   }
 
-  fetchDataTimesheetDetails(){
+  deleteTimesheet(timesheet_id: any, timesheet_detail_id: any) {
 
+   const  baseUrl = this.apiUrl+"/dashboard/"+timesheet_id+"/"+timesheet_detail_id+"/destroy";
+    console.log("Delete:",baseUrl);
+    
+    return this.httpClient.post<any>(baseUrl,{timesheet_detail_id:timesheet_detail_id});
   }
 
   fetchCsvDatas(fileId:any, timesheetId:any, no_of_rows:any){
