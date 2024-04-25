@@ -106,20 +106,43 @@ export class TimesheetDetailComponent {
     this.gridloading = true;
     this.dataService
       .getTimesheetById(this.timesheetId)
-      .subscribe((response) => {
-        console.log(response);
-        this.timesheetDetail = response.timesheet_detail;
-        this.user = response.user;
-        this.total = response.total;
-        console.log(this.timesheetDetail);
+      .subscribe({
+        next:(result)=>{
+          console.log(result);
+            this.timesheetDetail = result.timesheet_detail;
+            this.user = result.user;
+            this.total = result.total;
+            console.log(this.timesheetDetail);
+    
+            this.grid = {
+              data: this.timesheetDetail,
+              total: this.total,
+            };
+            console.log(this.grid);
+            this.gridloading = false;
+        },
+        error:(msg)=>{
+          console.log(msg);
+          this.gridloading = false;
+          this.router.navigate(['']);
+        }
+      }
+    )
+    
+      // .subscribe((response) => {
+      //   console.log(response);
+      //   this.timesheetDetail = response.timesheet_detail;
+      //   this.user = response.user;
+      //   this.total = response.total;
+      //   console.log(this.timesheetDetail);
 
-        this.grid = {
-          data: this.timesheetDetail,
-          total: this.total,
-        };
-        console.log(this.grid);
-        this.gridloading = false;
-      });
+      //   this.grid = {
+      //     data: this.timesheetDetail,
+      //     total: this.total,
+      //   };
+      //   console.log(this.grid);
+      //   this.gridloading = false;
+      // });
   }
   timesheetName: string = '';
   csvFlag: number = 0;
@@ -172,6 +195,8 @@ export class TimesheetDetailComponent {
     const { dataItem } = args;
     this.closeEditor(args.sender);
 
+    console.log(this.timesheetId  )
+
     this.formGroup = new FormGroup({
       id: new FormControl(dataItem.id, Validators.required),
       timesheet_id: new FormControl(dataItem.timesheet_id, Validators.required),
@@ -210,16 +235,16 @@ export class TimesheetDetailComponent {
           })
     }
   }
-
-  //Delete Invoice and PDFs
-  // public removeHandler(event: RemoveEvent){
-  //   this.isLoading = true;
-  //   this.dataService.deleteInvoice(event.dataItem.id).subscribe((result)=>{
-  //     console.log(result.message);
-  //     this.loadInvoices(this.skip, this.take);
-  //     this.isLoading = false;
-  //   });
-  // }
+  public removeHandler(event: RemoveEvent) {
+    // remove the current dataItem from the current data source
+    // in this example, the dataItem is `editService`
+    // this.dataService.remove(args.dataItem);
+    
+    this.dataService.deleteTimesheet( event.dataItem.timesheet_id,event.dataItem.id).subscribe((result) => {
+      console.log(result);
+      this.loadItem()
+    })
+  }
 
 
   public cancelHandler(args: CancelEvent): void {

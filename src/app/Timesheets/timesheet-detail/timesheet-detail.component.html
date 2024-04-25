@@ -10,7 +10,7 @@
     </div>
   </div>
   <div class="" *ngIf="csvFlag === 0">
-    <div class="col-lg-12 py-3">
+    <div class="col-lg-12 my-3">
       <div *ngIf="showAddRowForm">
         <br>
         <div class="card card-body">
@@ -82,8 +82,7 @@
   (edit)="editHandler($event)"
   (cancel)="cancelHandler($event)"
   (save)="saveHandler($event)"
- 
-
+  (remove)="removeHandler($event)"
   >
   
     <kendo-grid-column
@@ -131,15 +130,7 @@
     [headerStyle]="{'font-weight': 'bold'}"
     title="Status"
     ></kendo-grid-column>
-  
-    <!-- <kendo-grid-column
-    title="Actions" [headerStyle]="{'font-weight': 'bold'}">
-    <ng-template kendoGridCellTemplate let-dataItem>
-      <button class="btn btn-dark btn-sm btn-smaller"  title="edit Timesheet" >
-        <i class="bi bi-pen"></i>
-      </button>
-    </ng-template>
-    </kendo-grid-column> -->
+
     <kendo-grid-command-column title="Actions"   [headerStyle]="{'font-weight': 'bold'}" [width]="220">
       <ng-template kendoGridCellTemplate let-isNew="isNew">
         <button kendoGridEditCommand type="button" [primary]="true">
@@ -151,7 +142,7 @@
           type="button"
           
         >
-          {{ isNew ? "Add" : "Update" }}
+          {{ !isNew ? "Update" : "" }}
         </button>
         <button kendoGridCancelCommand type="button">
           {{ isNew ? "Discard changes" : "Cancel" }}

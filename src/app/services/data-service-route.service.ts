@@ -36,8 +36,12 @@ export class DataServiceRouteService {
     return this.httpClient.put<timesheetDetail>(baseUrl,timesheet_detail)
   }
 
-  fetchDataTimesheetDetails(){
+  deleteTimesheet(timesheet_id: any, timesheet_detail_id: any) {
 
+   const  baseUrl = this.apiUrl+"/dashboard/"+timesheet_id+"/"+timesheet_detail_id+"/destroy";
+    console.log("Delete:",baseUrl);
+    
+    return this.httpClient.post<any>(baseUrl,{timesheet_detail_id:timesheet_detail_id});
   }
 
   fetchCsvDatas(fileId:any, timesheetId:any, no_of_rows:any){
