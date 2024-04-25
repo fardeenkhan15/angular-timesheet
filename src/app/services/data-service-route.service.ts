@@ -36,9 +36,13 @@ export class DataServiceRouteService {
 
   }
 
-  storeCsvTimesheet(data: any){
-    return this.httpClient.post<{file_id:number, csv_data:any[], timesheet_id:number, no_of_rows:number}>(this.apiUrl+"/dashboard/upload-csv", data)
+  fetchCsvDatas(fileId:any, timesheetId:any, no_of_rows:any){
+    return this.httpClient.get<timesheetDetail>(this.apiUrl+"/dashboard/"+fileId+"/"+timesheetId+"/"+no_of_rows);
   }
-  
+
+  storeCsvTimesheet(data: any){
+    return this.httpClient.post<{file_id:number, csv_data:any[], timesheet_id:number, no_of_rows:number}>(this.apiUrl+"/dashboard/upload-csv", data);
+  }
+
 
 }
