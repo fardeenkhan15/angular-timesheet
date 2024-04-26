@@ -17,29 +17,19 @@
     [sort]="sort"
     (sortChange)="sortChange($event)" 
     (add)="addHandler($event)"
-    (edit)="editHandler($event)"
     (cancel)="cancelHandler($event)"
-    (save)="saveHandler($event)"
     (remove)="removeHandler($event)"
+    [loading]="gridLoading"
     >
-    <ng-template kendoGridToolbarTemplate >
-        <button class="addInvoice" kendoGridAddCommand><i class="bi bi-plus-lg"></i> New</button>
-    </ng-template>
     <kendo-grid-column 
         field="invoice_id"
         title="Invoice ID" 
         [filterable]="false"
-        [width]="100"
+        [width]="130"
         >
         <ng-template kendoGridCellTemplate let-gridView>
             {{'INV0' + gridView.id}}
         </ng-template>
-    </kendo-grid-column>
-    <kendo-grid-column
-        field="timesheet_id"    
-        title="Timesheet ID"
-        [width]="120"
-        >
     </kendo-grid-column>
     <kendo-grid-column 
         field="worker_id" 
@@ -50,25 +40,25 @@
     <kendo-grid-column 
         field="worker_name" 
         title="Worker Name" 
-        [width]="190"
+        [width]="200"
         >
     </kendo-grid-column>
     <kendo-grid-column 
         field="total_amount" 
         title="Total Amount" 
-        [width]="140"
+        [width]="150"
         >
     </kendo-grid-column>
     <kendo-grid-column 
         field="organisation"
         title="Organisation" 
-        [width]="120"
+        [width]="150"
         >
     </kendo-grid-column>
     <kendo-grid-column 
         field="invoiced_date"
         title="Invoiced Date" 
-        [width]="100"
+        [width]="150"
         >
     </kendo-grid-column>
     
@@ -82,7 +72,6 @@
                 <button *ngIf="dataItem.invoiced_date" class="action-button"><i class="bi bi-download"></i></button>
                 <button *ngIf="dataItem.invoiced_date" class="action-button"><i class="bi bi-envelope"></i></button>
                 <button kendoGridRemoveCommand (click)="onClick()" class="action-button"><i class="bi bi-trash3-fill"></i></button>
-    
             </div>
            
         </ng-template>

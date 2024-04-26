@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 import { AddEvent, CancelEvent, EditEvent, GridComponent, GridDataResult, GridModule, PageChangeEvent, RemoveEvent, SaveEvent } from "@progress/kendo-angular-grid";
 import { InvoiceService } from '../../services/invoice.service';
@@ -22,6 +22,8 @@ import { HeaderComponent } from '../../header/header.component';
 })
 export class InvoiceDashboardComponent implements OnInit {
 
+
+  // @Input() gridLoading !: boolean;
   // Variables
   public invoiceData : any[] = [];
   public filteredData : any = [];
@@ -31,6 +33,7 @@ export class InvoiceDashboardComponent implements OnInit {
   public skip = 0;
   public total = 0;
   isLoading : boolean = false;
+  gridLoading : boolean = false;
 
   public lastInvoice = 0;
   
@@ -47,12 +50,14 @@ export class InvoiceDashboardComponent implements OnInit {
 
   //Load Invoices from Server/Back-end
   loadInvoices(skip:number, take:number){
+    this.gridLoading = true;
     this.invoiceService.getAllInvoices(this.skip, this.take).subscribe((result)=>{
       this.invoiceData = result.data;
       this.total = result.total;
       this.lastInvoice = result.lastIndex.id;
       console.log(this.lastInvoice);
       this.loadItems();
+      this.gridLoading = false;
     }) 
   }
 
@@ -152,6 +157,9 @@ export class InvoiceDashboardComponent implements OnInit {
     args.sender.addRow(this.formGroup);
   }
 
+ /*
+  *
+  *
 
   public editHandler(args: EditEvent){
 
@@ -183,14 +191,15 @@ export class InvoiceDashboardComponent implements OnInit {
           })
     }
   }
+  *
+  */
 
   //Delete Invoice and PDFs
   public removeHandler(event: RemoveEvent){
-    this.isLoading = true;
+    this.gridLoading = true;
     this.invoiceService.deleteInvoice(event.dataItem.id).subscribe((result)=>{
       console.log(result.message);
       this.loadInvoices(this.skip, this.take);
-      this.isLoading = false;
     });
   }
 
@@ -210,13 +219,11 @@ export class InvoiceDashboardComponent implements OnInit {
 
 
   generatePdf(id: any){
-
-    this.isLoading = true;
-
+    this.gridLoading = true;
     this.invoiceService.generatePdf(id).subscribe((result)=>{
       console.log(result.message);
       this.loadInvoices(this.skip, this.take);
-      this.isLoading = false;
+      this.gridLoading = false;
     })
   }
 

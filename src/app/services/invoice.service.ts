@@ -37,5 +37,11 @@ export class InvoiceService {
     return this.httpClient.get<any>(generatePdf);
   
   }
+
+  createInvoice(id:any, invoiceData:any){
+    const createInvoice = `http://127.0.0.1:8000/api/invoice/create?id=${id}&data=${invoiceData}`
+
+    return this.httpClient.post<any>(createInvoice, {id:id, data:invoiceData});
+  }
   
 }
