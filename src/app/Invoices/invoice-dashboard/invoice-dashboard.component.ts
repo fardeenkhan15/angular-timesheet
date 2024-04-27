@@ -202,6 +202,12 @@ export class InvoiceDashboardComponent implements OnInit {
       console.log(result.message);
       this.loadInvoices(this.skip, this.take);
     });
+
+    this.invoiceService.deletePdf(event.dataItem.id).subscribe(
+      (response) => {
+        console.log(response.message);
+      }
+    );
   }
 
 
