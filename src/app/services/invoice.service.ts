@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -29,19 +30,35 @@ export class InvoiceService {
 
     return this.httpClient.get<any>(removeInvoice);
   }
-  
+
 
   generatePdf(id: any){
     const generatePdf = `http://127.0.0.1:8000/api/invoice/generate-pdf?id=${id}`;
 
     return this.httpClient.get<any>(generatePdf);
-  
+
   }
+
+  viewPdf(id: any) {
+    const viewPdf = `http://127.0.0.1:8000/api/invoice/view-pdf?id=${id}`;
+
+    const headers = new HttpHeaders();
+
+    return this.httpClient.get<Blob>(viewPdf, {headers: headers, responseType: 'blob' as 'json'});
+
+  }
+
+  downloadPdf(id: any) {
+    const downloadPdf = `http://127.0.0.1:8000/api/invoice/download-pdf?id=${id}`;
+
+    return this.httpClient.get<any>(downloadPdf, {responseType: 'blob' as 'json'});
+  }
+
 
   createInvoice(id:any, invoiceData:any){
     const createInvoice = `http://127.0.0.1:8000/api/invoice/create?id=${id}&data=${invoiceData}`
 
     return this.httpClient.post<any>(createInvoice, {id:id, data:invoiceData});
   }
-  
+
 }

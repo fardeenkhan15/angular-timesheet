@@ -6,6 +6,7 @@ import { CompositeFilterDescriptor, GroupDescriptor, SortDescriptor, State, filt
 import { CommonModule } from '@angular/common';
 import { LoaderComponent } from '../loader/loader.component';
 import { HeaderComponent } from '../../header/header.component';
+import { HttpResponse } from '@angular/common/http';
 
 
 @Component({
@@ -28,7 +29,7 @@ export class InvoiceDashboardComponent implements OnInit {
   public invoiceData : any[] = [];
   public filteredData : any = [];
   public groups !: GroupDescriptor[];
-  public gridView : any = []; 
+  public gridView : any = [];
   public take = 10;
   public skip = 0;
   public total = 0;
@@ -36,7 +37,7 @@ export class InvoiceDashboardComponent implements OnInit {
   gridLoading : boolean = false;
 
   public lastInvoice = 0;
-  
+
   public formGroup ?: FormGroup;
   private editedRowIndex ?: number;
 
@@ -58,7 +59,7 @@ export class InvoiceDashboardComponent implements OnInit {
       console.log(this.lastInvoice);
       this.loadItems();
       this.gridLoading = false;
-    }) 
+    })
   }
 
 
@@ -67,7 +68,7 @@ export class InvoiceDashboardComponent implements OnInit {
     this.skip = event.skip;
     this.loadInvoices(this.skip, this.take);
     this.loadItems();
-  } 
+  }
 
   private loadItems(){
     this.gridView = {
@@ -103,8 +104,8 @@ export class InvoiceDashboardComponent implements OnInit {
     }
   }
 
-  
-  //Grouping 
+
+  //Grouping
   groupChange(groups: GroupDescriptor[]){
     this.groups = groups;
     console.log(this.groups);
@@ -140,7 +141,7 @@ export class InvoiceDashboardComponent implements OnInit {
     }
   }
 
-  
+
   // AddHandler
   addHandler(args: AddEvent){
     this.closeEditor(args.sender);
@@ -151,7 +152,7 @@ export class InvoiceDashboardComponent implements OnInit {
       worker_id: new FormControl("",Validators.required),
       worker_name: new FormControl("",Validators.required),
       total_amount: new FormControl(0,Validators.required),
-      organisation: new FormControl("",Validators.required) 
+      organisation: new FormControl("",Validators.required)
     })
 
     args.sender.addRow(this.formGroup);
@@ -173,9 +174,9 @@ export class InvoiceDashboardComponent implements OnInit {
       worker_id: new FormControl(dataItem.worker_id, Validators.required),
       worker_name: new FormControl(dataItem.worker_name, Validators.required),
       total_amount: new FormControl(dataItem.total_amount, Validators.required),
-      organisation: new FormControl(dataItem.organisation, Validators.required) 
+      organisation: new FormControl(dataItem.organisation, Validators.required)
     })
-      
+
     this.editedRowIndex = args.rowIndex;
     args.sender.editRow(args.rowIndex, this.formGroup);
   }
@@ -227,7 +228,73 @@ export class InvoiceDashboardComponent implements OnInit {
     })
   }
 
-  
+
+  viewPdf(id: any) {
+    this.invoiceService.viewPdf(id).subscribe(
+      (response: Blob) => {
+        if(response.type === 'application/json'){
+          console.log(response);
+          this.parseBlob(response);
+        }
+        else if(response.type === 'application/pdf'){
+          const file = new Blob([response], { type: 'application/pdf' });
+          const fileURL = URL.createObjectURL(file);
+          window.open(fileURL, '_blank');
+
+          console.log('Viewed pdf: ' +id);
+        }
+        else {
+          console.log('Something went wrong! Could not Load PDF');
+        }
+      },
+      (error) => {
+        // console.error('PDF NOT FOUND:', error);
+      }
+    );
+  }
+
+  parseBlob(blob: Blob) {
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      // JSON Data incoming from backend
+      const jsonData = JSON.parse(reader.result as string);
+      console.log('JSON Data:', jsonData.message);
+    };
+    reader.readAsText(blob);
+  }
+
+  downloadPdf(invoice: any) {
+    const id = invoice.id;
+    console.log(invoice);
+    const filename = invoice.timesheet_id + '_' + invoice.worker_id + '_' + invoice.organisation + '_invoice.pdf';
+    this.invoiceService.downloadPdf(id).subscribe(
+      (response: Blob) => {
+        if(response.type === 'application/pdf'){
+          console.log(response);
+
+          const fileURL = URL.createObjectURL(response);
+          const a = document.createElement('a');
+          a.href = fileURL;
+          a.download = filename ? filename : 'invoice.pdf';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+
+          alert('PDF downloaded succesfully for: ' + invoice.worker_name);
+        }
+        else if(response.type === 'application/json'){
+          console.log(response);
+          this.parseBlob(response);
+        }
+        else {
+          console.log('Something went wrong! Could not Download PDF');
+        }
+      },
+      (error) => {}
+    );
+  }
+
+
 
   onClick(){
     console.log("clicked");
