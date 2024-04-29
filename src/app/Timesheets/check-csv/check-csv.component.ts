@@ -3,12 +3,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DataToCsvService } from '../../services/data-to-csv.service';
 import { GridModule } from '@progress/kendo-angular-grid';
 import { DataServiceRouteService } from '../../services/data-service-route.service';
+import { Toast, ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-check-csv',
   standalone: true,
   imports: [
-    GridModule,
+    GridModule
   ],
   templateUrl: './check-csv.component.html',
   styleUrl: './check-csv.component.css'
@@ -21,6 +22,7 @@ export class CheckCsvComponent {
   timesheetId:any;
   fileId:any;
   noOfRows:any;
+  toasterService=inject(ToastrService)
 
   ngOnInit(): void {
     this.getRequired();
@@ -38,22 +40,20 @@ export class CheckCsvComponent {
   loadItem(){
     this.dataService.fetchCsvDatas(this.fileId, this.timesheetId, this.noOfRows).subscribe((result)=>{
       this.timesheetDatas = result.csv_data.data;
-      this.timesheetDatas.value['created_by']="0";
-      this.timesheetDatas.value['upload_type_csv']="1";
       console.log(this.timesheetDatas);
     });
   }
 
   navigateToDetail(){
     console.log(this.fileId);
-    this.timesheetDatas.value['created_by']="0";
-    this.timesheetDatas.value['upload_type_csv']="1";
       this.dataService.uploadCsvDatas(this.timesheetId,this.fileId).subscribe((result) => {
+        this.toasterService.success("csv file added successfuly")
       this.router.navigateByUrl("/timesheet/"+this.timesheetId)
     })
   }
 
   discardUpload(){
-    this.router.navigateByUrl("");
+    this.toasterService.error("Canceled the csv upload")
+    this.router.navigateByUrl("/timesheet");
   }
 }
