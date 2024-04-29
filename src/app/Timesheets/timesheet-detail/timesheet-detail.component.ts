@@ -277,6 +277,7 @@ export class TimesheetDetailComponent {
       .updateTimesheetDraftStatus(this.timesheetId, id)
       .subscribe((result)=>{
         console.log(result);
+        this.toastService.success("Sent for invoicing");
         this.loadItem();
       }
     )
