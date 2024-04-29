@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 import { AddEvent, CancelEvent, EditEvent, GridComponent, GridDataResult, GridModule, PageChangeEvent, RemoveEvent, SaveEvent } from "@progress/kendo-angular-grid";
 import { InvoiceService } from '../../services/invoice.service';
@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { LoaderComponent } from '../loader/loader.component';
 import { HeaderComponent } from '../../header/header.component';
 import { HttpResponse } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -35,6 +36,7 @@ export class InvoiceDashboardComponent implements OnInit {
   public total = 0;
   isLoading : boolean = false;
   gridLoading : boolean = false;
+  toasterService = inject(ToastrService);
 
   public lastInvoice = 0;
 
@@ -304,6 +306,7 @@ export class InvoiceDashboardComponent implements OnInit {
   sendMail(id: any) {
     this.invoiceService.sendMail(id).subscribe((response) => {
       console.log(response.message);
+      this.toasterService.success("Mail sent successfully");
     })
   }
 

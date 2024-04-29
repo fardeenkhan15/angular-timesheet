@@ -4,6 +4,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../../services/auth.service';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'app-forgot-password',
@@ -12,7 +13,8 @@ import { AuthService } from '../../../services/auth.service';
             FormsModule,
             ReactiveFormsModule, 
             CommonModule,
-            RouterLink],
+            RouterLink,
+            HeaderComponent],
   templateUrl: './forgot-password.component.html',
   styleUrl: './forgot-password.component.css'
 })

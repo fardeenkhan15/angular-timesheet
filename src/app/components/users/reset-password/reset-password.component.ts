@@ -5,6 +5,7 @@ import { ActivatedRoute, Route, Router, RouterLink, RouterOutlet } from '@angula
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../../services/auth.service';
 import { TextmatchPipe } from '../../../../Pipes/text-match/textmatch.pipe';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'app-reset-password',
@@ -14,7 +15,8 @@ import { TextmatchPipe } from '../../../../Pipes/text-match/textmatch.pipe';
             ReactiveFormsModule, 
             CommonModule,
             RouterLink,
-            TextmatchPipe],
+            TextmatchPipe,
+            HeaderComponent],
   templateUrl: './reset-password.component.html',
   styleUrl: './reset-password.component.css'
 })

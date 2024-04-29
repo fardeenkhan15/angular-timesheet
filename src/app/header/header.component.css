@@ -11,6 +11,7 @@
 .nav-link:hover{
     color: #F7FFF7;
     font-size: medium;
+    cursor: pointer;
 }
 .logo{
     font-weight: bolder;
