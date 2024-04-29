@@ -8,6 +8,7 @@ import { NgClass } from '@angular/common';
 import { Router } from '@angular/router';
 import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
 import { DataToCsvService } from '../../services/data-to-csv.service';
+import { HeaderComponent } from '../../header/header.component';
 
 @Component({
   selector: 'app-timesheet-dashboard',
@@ -17,6 +18,7 @@ import { DataToCsvService } from '../../services/data-to-csv.service';
     TimesheetGridComponent,
     ReactiveFormsModule,
     NgClass,
+    HeaderComponent
   ],
   templateUrl: './timesheet-dashboard.component.html',
   styleUrl: './timesheet-dashboard.component.css'

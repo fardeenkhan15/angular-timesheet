@@ -20,8 +20,8 @@ export class DataServiceRouteService {
     return this.httpClient.post<{timesheet_id:any}>(this.apiUrl+"/timesheets", timesheet);
   }
 
-  getTimesheetById(id: any) {
-    return this.httpClient.get<timesheetDetail>(this.apiUrl+"/dashboard/"+id);
+  getTimesheetById(skip:any, take:any, id: any) {
+    return this.httpClient.get<timesheetDetail>(this.apiUrl+"/dashboard/"+id+"?skip="+skip+"&take="+take);
   }
 
   addManualRow(id:number ,timesheetDetail: timesheetDetail){
@@ -56,6 +56,10 @@ export class DataServiceRouteService {
     console.log("fileId:",fileId);
     return this.httpClient.post<any>(this.apiUrl+"/dashboard/"+timesheetId+"/store",{fileId:fileId})
   }
+
+   updateTimesheetDraftStatus(timesheetId:any,id:any){
+    return this.httpClient.get<any>(this.apiUrl+"/dashboard/"+timesheetId+"/draftstatus/"+id)
+   }
 
 
 }

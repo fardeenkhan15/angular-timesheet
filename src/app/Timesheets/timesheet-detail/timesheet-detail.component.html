@@ -1,3 +1,4 @@
+<app-header></app-header>
 <div class="container">
   <div class="col-lg-12" [style.height]=" getTimesheetDetail.csv_flag === 1 ? '65px' : '50px'">
     <div class="d-flex justify-content-between" [class.py-3]="getTimesheetDetail.csv_flag === 1" [class.py-4]="getTimesheetDetail.csv_flag === 0">
@@ -126,29 +127,44 @@
     ></kendo-grid-column>
 
     <kendo-grid-column
-    field="draft_status"
     [headerStyle]="{'font-weight': 'bold'}"
     title="Status"
-    ></kendo-grid-column>
+    >
+    <ng-template kendoGridCellTemplate let-dataItem>
+      @if(dataItem.draft_status){
+        Draft
+      }
+      @else {
+        Saved
+      }
+    </ng-template>
+    </kendo-grid-column>
 
     <kendo-grid-command-column title="Actions"   [headerStyle]="{'font-weight': 'bold'}" [width]="220">
-      <ng-template kendoGridCellTemplate let-isNew="isNew">
+      <ng-template kendoGridCellTemplate let-isNew="isNew" let-dataItem>
 
-        <button kendoGridEditCommand type="button" class="action-button" title="Edit">
-          <i class="fas fa-edit"></i>
-        </button>
-        <button kendoGridRemoveCommand type="button" class="action-button" title="Delete">
-          <i class="fa-solid fa-trash" ></i></button>
-          <button kendoGridSaveCommand type="button" title="Update" >
-            <ng-container *ngIf="!isNew">
-              <i class="fa-solid fa-circle-check"></i>
-            </ng-container>
+        @if (!dataItem.draft_status && !dataItem.invoice_status ){
+          INVOICING
+        }
+        @if (dataItem.draft_status){
+          <button kendoGridEditCommand type="button" class="action-button" title="Edit">
+            <i class="fas fa-edit"></i>
           </button>
-          <button kendoGridCancelCommand type="button" class="action-button" title="Cancel">
-            <ng-container *ngIf ="!isNew">
-              <i class="fa-solid fa-circle-xmark"></i>
-            </ng-container>
+          <button kendoGridRemoveCommand type="button" class="action-button" title="Delete">
+            <i class="fa-solid fa-trash" ></i></button>
+            <button kendoGridSaveCommand type="button" title="Update" >
+          <ng-container *ngIf="!isNew">
+            <i class="fa-solid fa-circle-check"></i>
+          </ng-container>
+          <ng-container *ngIf ="!isNew">
+            <i class="fa-solid fa-circle-xmark"></i>
+          </ng-container>
+          <button class="btn btn-primary" (click) = "updateDraftStatus(dataItem.id)">
+            Save
           </button>
+        }
+
+
       </ng-template>
     </kendo-grid-command-column>
   </kendo-grid>

@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { InvoiceDashboardComponent } from '../invoice-dashboard/invoice-dashboard.component';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { HeaderComponent } from '../../header/header.component';
 
 @Component({
   selector: 'app-invoice-home',
@@ -10,7 +11,8 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
     InvoiceDashboardComponent,
     InvoiceHomeComponent,
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HeaderComponent
   ],
   templateUrl: './invoice-home.component.html',
   styleUrl: './invoice-home.component.css'
