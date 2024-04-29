@@ -30,6 +30,8 @@ export class TimesheetDetailComponent {
   private editedRowIndex ?: number;
   formData:FormData = new FormData();
 
+  getTimesheetDetail : any;
+
   grid: any | GridDataResult = {
     data: [],
     total: 0,
@@ -108,7 +110,8 @@ export class TimesheetDetailComponent {
       .getTimesheetById(this.timesheetId)
       .subscribe({
         next:(result)=>{
-          console.log(result);
+          this.getTimesheetDetail = result;
+          console.log(this.getTimesheetDetail.csv_flag);
             this.timesheetDetail = result.timesheet_detail;
             this.user = result.user;
             this.total = result.total;
@@ -144,8 +147,8 @@ export class TimesheetDetailComponent {
       //   this.gridloading = false;
       // });
   }
-  timesheetName: string = '';
-  csvFlag: number = 0;
+  timesheets_name: string = '';
+  csv_flag: number = 1;
 
   showAddRowForm: boolean = false;
   addRowForm: FormGroup;

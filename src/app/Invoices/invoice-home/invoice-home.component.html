@@ -1,15 +1,62 @@
 <div class="container">
-    <div class="border border-2 p-3 my-4 bg-light">
-      <div class="d-flex justify-content-between align-items-center">
-        <h5>Invoices</h5>
-        <div class="d-flex">
-          <button class="btn btn-success me-3" (click)="toggleGenerateInvoice()">
-            <i class="bi bi-download"></i> Generate Report
-          </button>
-        </div>
+  <div class="border border-2 p-3 my-3 bg-light">
+    <div class="d-flex justify-content-between align-items-center">
+      <h5>Invoices</h5>
+      <div class="d-flex">
+        <button class="btn btn-primary me-3" (click)="toggleGenerateInvoice()">
+          <i class="bi bi-plus-lg"></i> Create Invoice
+        </button>
+        <button class="btn btn-success me-3">
+          <i class="bi bi-download"></i> Generate Report
+        </button>
       </div>
     </div>
-    <div class="d-flex justify-content-center text-align-center" >
-        <app-invoice-dashboard></app-invoice-dashboard>
+  </div>
+
+  <div [ngClass]="{'collapse': !isCollapsed, 'show': isCollapsed}" id="collapseExample">
+    <div class="card card-body mb-3">
+      <form [formGroup]="newInvoiceForm" (ngSubmit)="addNewInvoice()">
+        <div class="row">
+          <div class="col-4">
+            <div class="mb-3">
+              <label for="worker_id">Worker ID <span class="mandatory">*</span></label>
+              <input type="text" class="form-control" id="worker_id" formControlName="workerId" placeholder="Enter Worker ID">
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="mb-3">
+              <label for="worker_name">Worker Name <span class="mandatory">*</span></label>
+              <input type="text" class="form-control" id="worker_name" formControlName="workerName" placeholder="Enter Worker Name"> 
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="mb-3">
+              <label for="invoice_date">Date <span class="mandatory">*</span></label>
+              <input type="date" class="form-control" id="invoice_date" formControlName="invoiceDate" placeholder="Enter Invoice Date">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-4">
+            <div class="mb-3">
+              <label for="total_amount">Amount <span class="mandatory">*</span></label>
+              <input type="text" class="form-control" id="total_amount" formControlName="totalAmount" placeholder="Enter Total Amount">
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="mb-3">
+              <label for="organisation">Organisation <span class="mandatory">*</span></label>
+              <input type="text" class="form-control" id="organisation" formControlName="organisation" placeholder="Enter Organisation"> 
+              <input type="hidden" class="form-control" id="timesheet_id" formControlName="timesheet_id"> 
+            </div>
+          </div>
+        </div>
+        <div class="mb-3 text-center">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
     </div>
+  </div>
+  <app-invoice-dashboard #invoiceDashboard></app-invoice-dashboard>
 </div>

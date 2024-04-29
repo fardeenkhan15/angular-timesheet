@@ -38,13 +38,17 @@ export class CheckCsvComponent {
   loadItem(){
     this.dataService.fetchCsvDatas(this.fileId, this.timesheetId, this.noOfRows).subscribe((result)=>{
       this.timesheetDatas = result.csv_data.data;
+      this.timesheetDatas.value['created_by']="0";
+      this.timesheetDatas.value['upload_type_csv']="1";
       console.log(this.timesheetDatas);
     });
   }
 
   navigateToDetail(){
     console.log(this.fileId);
-    this.dataService.uploadCsvDatas(this.timesheetId,this.fileId).subscribe((result) => {
+    this.timesheetDatas.value['created_by']="0";
+    this.timesheetDatas.value['upload_type_csv']="1";
+      this.dataService.uploadCsvDatas(this.timesheetId,this.fileId).subscribe((result) => {
       this.router.navigateByUrl("/timesheet/"+this.timesheetId)
     })
   }
