@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
 import { DataToCsvService } from '../../services/data-to-csv.service';
 import { HeaderComponent } from '../../header/header.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-timesheet-dashboard',
@@ -37,6 +38,7 @@ export class TimesheetDashboardComponent {
   timesheetId:any;
   formData:FormData = new FormData();
   file:any;
+  toasterService = inject(ToastrService);
 
   private fb = inject(FormBuilder);
 
@@ -70,6 +72,7 @@ export class TimesheetDashboardComponent {
       this.dataService.storeManualTimesheet(this.manualTimesheetForm.value).subscribe(result => {
         this.timesheetId = result.timesheet_id;
         console.log(result.timesheet_id)
+        this.toasterService.success("Created manual timesheet")
         this.router.navigateByUrl("timesheet/"+this.timesheetId);
       })
     }

@@ -11,6 +11,7 @@ import { InputsModule } from '@progress/kendo-angular-inputs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { HeaderComponent } from '../../header/header.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-timesheet-detail',
@@ -31,6 +32,7 @@ export class TimesheetDetailComponent {
   router = inject(Router);
   public formGroup : any;
   private editedRowIndex ?: number;
+  toastService = inject(ToastrService);
   formData:FormData = new FormData();
 
   getTimesheetDetail : any;
@@ -115,6 +117,7 @@ export class TimesheetDetailComponent {
         next:(result)=>{
           this.getTimesheetDetail = result;
           console.log(this.getTimesheetDetail.csv_flag);
+          console.log(this.getTimesheetDetail);
             this.timesheetDetail = result.timesheet_detail;
             this.user = result.user;
             this.total = result.total;
@@ -248,6 +251,7 @@ export class TimesheetDetailComponent {
     console.log("delete");
     this.dataService.deleteTimesheet( event.dataItem.timesheet_id,event.dataItem.id).subscribe((result) => {
       console.log(result);
+      this.toastService.success("Deletd Successfuly")
       this.loadItem();
     })
   }
