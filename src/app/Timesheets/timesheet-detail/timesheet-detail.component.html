@@ -134,21 +134,21 @@
     <kendo-grid-command-column title="Actions"   [headerStyle]="{'font-weight': 'bold'}" [width]="220">
       <ng-template kendoGridCellTemplate let-isNew="isNew">
 
-        <button kendoGridEditCommand type="button" [primary]="true">
-          Edit
+        <button kendoGridEditCommand type="button" class="action-button" title="Edit">
+          <i class="fas fa-edit"></i>
         </button>
-        <button kendoGridRemoveCommand type="button">Remove</button>
-        <button
-          kendoGridSaveCommand
-          type="button"
-
-        >
-          {{ !isNew ? "Update" : "" }}
-        </button>
-        <button kendoGridCancelCommand type="button">
-          {{ isNew ? "Discard changes" : "Cancel" }}
-        </button>
-
+        <button kendoGridRemoveCommand type="button" class="action-button" title="Delete">
+          <i class="fa-solid fa-trash" ></i></button>
+          <button kendoGridSaveCommand type="button" title="Update" >
+            <ng-container *ngIf="!isNew">
+              <i class="fa-solid fa-circle-check"></i>
+            </ng-container>
+          </button>
+          <button kendoGridCancelCommand type="button" class="action-button" title="Cancel">
+            <ng-container *ngIf ="!isNew">
+              <i class="fa-solid fa-circle-xmark"></i>
+            </ng-container>
+          </button>
       </ng-template>
     </kendo-grid-command-column>
   </kendo-grid>
