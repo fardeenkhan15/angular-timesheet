@@ -106,6 +106,7 @@
     field="worker_id"
     [headerStyle]="{'font-weight': 'bold'}"
     title="Worker Id"
+    [width]="100"
     ></kendo-grid-column>
 
     <kendo-grid-column
@@ -118,17 +119,24 @@
     field="hourly_pay"
     [headerStyle]="{'font-weight': 'bold'}"
     title="Hourly Pay"
-    ></kendo-grid-column>
+    [style]="{ 'text-align': 'right' }"
+    >
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <span>£{{ dataItem.hourly_pay }}</span>
+    </ng-template>
+    </kendo-grid-column>
 
     <kendo-grid-column
     field="hours_worked"
     [headerStyle]="{'font-weight': 'bold'}"
     title="Hours Worked"
+    [style]="{ 'text-align': 'right' }"
     ></kendo-grid-column>
 
     <kendo-grid-column
     [headerStyle]="{'font-weight': 'bold'}"
     title="Status"
+    [width]="80"
     >
     <ng-template kendoGridCellTemplate let-dataItem>
       @if(dataItem.draft_status){
@@ -140,7 +148,7 @@
     </ng-template>
     </kendo-grid-column>
 
-    <kendo-grid-command-column title="Actions"   [headerStyle]="{'font-weight': 'bold'}" [width]="220">
+    <kendo-grid-command-column title="Actions"   [headerStyle]="{'font-weight': 'bold'}" [width]="150">
       <ng-template kendoGridCellTemplate let-isNew="isNew" let-dataItem>
 
         @if (!dataItem.draft_status && !dataItem.invoice_status ){
@@ -150,19 +158,19 @@
           INVOICED
         }
         @if (dataItem.draft_status){
-          <button id="action-button" kendoGridEditCommand type="button" title="Edit" (click)="isEditing = true">
+          <button id="action-button" kendoGridEditCommand type="button" title="Edit" (click)="clickHandler(dataItem.id)">
             <i class="fas fa-edit"></i>
           </button>
           <button kendoGridRemoveCommand id="action-button" type="button" title="Delete">
             <i class="fa-solid fa-trash" ></i>
           </button>
-          <button kendoGridSaveCommand type="button" id="action-button" title="Update" >
+          <button kendoGridSaveCommand type="button" id="action-button" title="Update">
             <i class="fa-solid fa-circle-check"></i>
           </button>
-          <button kendoGridCancelCommand type="button" id="action-button" title="Cancel" (click)="isEditing = false">
-            <i class="fa-solid fa-circle-xmark"></i>  
+          <button kendoGridCancelCommand type="button" id="action-button" title="Cancel" (click)="isEditing[dataItem.id]=false">
+            <i class="fa-solid fa-circle-xmark"></i>
           </button>
-          <button id="action-button" (click) = "updateDraftStatus(dataItem.id)" title="Save" *ngIf="!isEditing">
+          <button id="action-button" (click) = "updateDraftStatus(dataItem.id)" title="Save" *ngIf="!isEditing[dataItem.id]">
             <i class="fa-solid fa-file-export"></i>
           </button>
         }

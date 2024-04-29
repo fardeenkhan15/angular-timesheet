@@ -20,7 +20,8 @@ import { HeaderComponent } from '../../header/header.component';
   styleUrl: './timesheet-detail.component.css',
 })
 export class TimesheetDetailComponent {
-  isEditing: boolean = false;
+  isEditing: { [id: number]: boolean } = {};
+  offSave !: boolean;
   groups: GroupDescriptor[] = [];
   timesheetDetail: any[] = [];
   gridData: any = { data: [], total: 0 };
@@ -236,6 +237,7 @@ export class TimesheetDetailComponent {
             console.log(result);
             this.closeEditor(args.sender);
             this.loadItem();
+            this.isEditing[args.dataItem.id] = false;
           })
     }
   }
@@ -253,6 +255,7 @@ export class TimesheetDetailComponent {
 
   public cancelHandler(args: CancelEvent): void {
     this.closeEditor(args.sender, args.rowIndex);
+    this.isEditing[args.dataItem.id] = false;
   }
 
 
@@ -273,6 +276,12 @@ export class TimesheetDetailComponent {
         this.loadItem();
       }
     )
+  }
+
+  clickHandler(id:any){
+    this.isEditing = {[id]: true};
+    // console.log("id",id);
+    
   }
 
 }
