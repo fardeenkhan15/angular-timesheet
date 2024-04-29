@@ -126,28 +126,42 @@
     ></kendo-grid-column>
 
     <kendo-grid-column
-    field="draft_status"
     [headerStyle]="{'font-weight': 'bold'}"
     title="Status"
-    ></kendo-grid-column>
+    >
+    <ng-template kendoGridCellTemplate let-dataItem>
+      @if(dataItem.draft_status){
+        Draft
+      }
+      @else {
+        Saved
+      }
+    </ng-template>
+    </kendo-grid-column>
 
     <kendo-grid-command-column title="Actions"   [headerStyle]="{'font-weight': 'bold'}" [width]="220">
-      <ng-template kendoGridCellTemplate let-isNew="isNew">
+      <ng-template kendoGridCellTemplate let-isNew="isNew" let-dataItem>
 
-        <button kendoGridEditCommand type="button" [primary]="true">
-          Edit
-        </button>
-        <button kendoGridRemoveCommand type="button">Remove</button>
-        <button
-          kendoGridSaveCommand
-          type="button"
+        @if (!dataItem.draft_status && !dataItem.invoice_status ){
+          INVOICING
+        }
+        @if (dataItem.draft_status){
+          <button kendoGridEditCommand type="button" [primary]="true">
+            Edit
+          </button>
+          <button kendoGridRemoveCommand type="button">Remove</button>
+          <button
+            kendoGridSaveCommand
+            type="button"
 
-        >
-          {{ !isNew ? "Update" : "" }}
-        </button>
-        <button kendoGridCancelCommand type="button">
-          {{ isNew ? "Discard changes" : "Cancel" }}
-        </button>
+          >
+            {{ !isNew ? "Update" : "" }}
+          </button>
+          <button kendoGridCancelCommand type="button">
+            {{ isNew ? "Discard changes" : "Cancel" }}
+          </button>
+        }
+
 
       </ng-template>
     </kendo-grid-command-column>
