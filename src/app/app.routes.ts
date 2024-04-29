@@ -6,29 +6,60 @@ import { CheckCsvComponent } from './Timesheets/check-csv/check-csv.component';
 import { RegisterComponent } from './components/users/register/register.component';
 import { LoginComponent } from './components/users/login/login.component';
 import { SetPasswordComponent } from './components/users/set-password/set-password.component';
+import { ForgotPasswordComponent } from './components/users/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './components/users/reset-password/reset-password.component';
+import { AuthGuardService } from './services/auth-guard.service';
+import { AuthRedirectGuardService } from './services/auth-redirect-guard.service';
 
 export const routes: Routes = [
 
-  { path: '', redirectTo: "register", pathMatch: 'full' },
-  { path: 'register', component: RegisterComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'set-password/:token', component: SetPasswordComponent },
+
+
+  { 
+    path: '', redirectTo: "login", pathMatch: 'full' 
+  },
+  { path: 'register', 
+    component: RegisterComponent },
+  { 
+    path: 'login', 
+    component: LoginComponent,
+    // canActivate: [AuthRedirectGuardService]
+  },
+  { 
+    path: 'set-password/:token', 
+    component: SetPasswordComponent 
+  },
+
+  {
+    path: 'forgot-password',
+    component: ForgotPasswordComponent
+  },
+  {
+    path: 'reset-password/:token',
+    component: ResetPasswordComponent
+   //  canActivate: [AuthGuardService]
+  },
   {
     path: "timesheet",
-    component:TimesheetDashboardComponent
+    component:TimesheetDashboardComponent,
+     canActivate: [AuthGuardService]
   },
   {
     path: "timesheet/:id",
-    component:TimesheetDetailComponent
+    component:TimesheetDetailComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: "invoices",
-    component : InvoiceHomeComponent
+    component : InvoiceHomeComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: "timesheet/check-csv/:fileId/:timesheetId/:noOfRows",
-    component : CheckCsvComponent
+    component : CheckCsvComponent,
+    canActivate: [AuthGuardService]
   },
+
   { path: '**', component: RegisterComponent }
 
 
