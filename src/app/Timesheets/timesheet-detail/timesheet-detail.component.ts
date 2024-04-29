@@ -10,11 +10,12 @@ import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router'
 import { InputsModule } from '@progress/kendo-angular-inputs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
+import { HeaderComponent } from '../../header/header.component';
 
 @Component({
   selector: 'app-timesheet-detail',
   standalone: true,
-  imports: [GridModule, FormsModule, CommonModule, ReactiveFormsModule,InputsModule],
+  imports: [GridModule, FormsModule, CommonModule, ReactiveFormsModule,InputsModule,HeaderComponent],
   templateUrl: './timesheet-detail.component.html',
   styleUrl: './timesheet-detail.component.css',
 })
@@ -148,7 +149,6 @@ export class TimesheetDetailComponent {
       // });
   }
   timesheets_name: string = '';
-  csv_flag: number = 1;
 
   showAddRowForm: boolean = false;
   addRowForm: FormGroup;

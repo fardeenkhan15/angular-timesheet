@@ -1,0 +1,96 @@
+<app-header-login></app-header-login>
+<div class="row  m-0 ">
+    <div class="col-6 ">
+        <app-onboard-image></app-onboard-image>
+    </div>
+    <div class="col-lg-6 mt-5 ">
+        <div class="row">
+            <div class="col-lg-9  p-4 rounded ">
+                <form [formGroup]="registrationForm" (ngSubmit)="OnRegisterSubmit()" class="bg-image">
+                    <div class="col-3 mx-auto">
+                        <h5 class="text-dark">{{title}}</h5>
+                    </div>
+                    <div class="m-2">
+                        <b>
+                            <small>
+                                <label class="form-label text-info " for="first_name ">First Name</label>
+                            </small>
+                        </b>
+                        <input type="text" class="form-control text-dark rounded-0"
+                            placeholder="Enter First Name" name="first_name" id="first_name"
+                            formControlName="first_name" appCharOnly />
+                        @if (first_name?.errors?.['required'] && first_name?.touched) {
+                            <b><small class="text-danger">*Firstname field is required</small></b>
+                        }
+                        @if (first_name?.errors?.['pattern']) {
+                            <b><small class="text-danger">*Name should have only characters</small></b>
+                        }
+
+                    </div>
+                    <div class="m-2">
+                        <b><small>
+                            <label class="form-label text-info" for="last_name ">Last Name</label>
+                        </small></b>
+                        <input type="text" class="form-control rounded-0 " placeholder="Enter  Last Name"
+                            name="last_name" id="last_name" formControlName="last_name" appCharOnly />
+                        @if (last_name?.errors?.['required'] && last_name?.touched) {
+                            <b><small class="text-danger">*Lastname field is required</small></b>
+                        }
+                        @if (last_name?.errors?.['pattern']) {
+                            <b><small class="text-danger">*Name should have only characters</small></b>
+                        }
+                    </div>
+
+                    <div class="m-2">
+                        <b><small>
+                            <label class="form-label text-info" for="email ">Email</label>
+                        </small></b>
+                        <input type="text" class="form-control rounded-0 " placeholder="Enter  Email Address"
+                            name="email" id="email" formControlName="email" />
+                        @if (email?.errors?.['required'] && email?.touched) {
+                            <b><small class="text-danger">*Email field is required</small></b>
+                        }
+                        @if (email?.errors?.['pattern'] && email?.touched && email?.dirty) {
+                            <b><small class="text-danger">*Invalid Email Address</small></b>
+                        }
+                    </div>
+
+                    <div class="m-2">
+                        <b><small>
+                            <label class="form-label text-info" for="phone_number ">PhoneNumber</label>
+                        </small></b>
+                        <input type="text" class="form-control rounded-0 " placeholder="Enter Phone Number"
+                            name="phone_number" id="phone_number" formControlName="phone_number" appNumberOnly />
+                        @if (phone_number?.errors?.['required'] && phone_number?.touched) {
+                            <b><small class="text-danger">*Phonenumber field is required</small></b>
+                        }
+                        @if (phone_number?.errors?.['pattern']) {
+                            <b><small class="text-danger">*Phone Number should have only numbers</small></b>
+                        }
+                        @if (phone_number?.errors?.['minlength'] || phone_number?.errors?.['maxlength'] ) {
+                            <b><small class="text-danger">*Phone Number should have 10 numbers</small></b>
+                        }
+
+                    </div>
+
+
+
+                    <div class="col-3 m-2 " id="btn-div ">
+                        <button type="submit" class="form-control btn btn-info text-dark rounded-0" 
+                        id="submit" name="submit" [disabled]="registrationForm.invalid">Submit </button>
+                    </div>
+                    <div class="col-10 mx-auto">
+                        <span class="m-2">
+                            Already Have An Account ?
+                            <a routerLink="/login" class="m-2 text-info">Login</a>
+                        </span>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+        <app-loader-login [isLoading]="isLoading"></app-loader-login>
+    </div>
+
+</div>

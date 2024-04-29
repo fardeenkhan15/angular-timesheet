@@ -1,6 +1,4 @@
-body{
-  background-color: red;
-}
+@import 'ngx-toastr/toastr';
 
 /* Grid container */
 /* .k-grid {
