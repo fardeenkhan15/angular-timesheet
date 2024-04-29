@@ -2,7 +2,7 @@
     position: relative;
 }
 
-button{
+#action-button{
     border:none;
     background : none;
     padding : 3px;

@@ -20,6 +20,7 @@ import { HeaderComponent } from '../../header/header.component';
   styleUrl: './timesheet-detail.component.css',
 })
 export class TimesheetDetailComponent {
+  isEditing: boolean = false;
   groups: GroupDescriptor[] = [];
   timesheetDetail: any[] = [];
   gridData: any = { data: [], total: 0 };

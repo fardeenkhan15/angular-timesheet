@@ -147,22 +147,23 @@
           INVOICING
         }
         @if (dataItem.draft_status){
-          <button kendoGridEditCommand type="button" class="action-button" title="Edit">
+          <button id="action-button" kendoGridEditCommand type="button" title="Edit" (click)="isEditing = true">
             <i class="fas fa-edit"></i>
           </button>
-          <button kendoGridRemoveCommand type="button" class="action-button" title="Delete">
-            <i class="fa-solid fa-trash" ></i></button>
-            <button kendoGridSaveCommand type="button" title="Update" >
-          <ng-container *ngIf="!isNew">
+          <button kendoGridRemoveCommand id="action-button" type="button" title="Delete">
+            <i class="fa-solid fa-trash" ></i>
+          </button>
+          <button kendoGridSaveCommand type="button" id="action-button" title="Update" >
             <i class="fa-solid fa-circle-check"></i>
-          </ng-container>
-          <ng-container *ngIf ="!isNew">
-            <i class="fa-solid fa-circle-xmark"></i>
-          </ng-container>
-          <button class="btn btn-primary" (click) = "updateDraftStatus(dataItem.id)">
-            Save
+          </button>
+          <button kendoGridCancelCommand type="button" id="action-button" title="Cancel" (click)="isEditing = false">
+            <i class="fa-solid fa-circle-xmark"></i>  
+          </button>
+          <button id="action-button" (click) = "updateDraftStatus(dataItem.id)" title="Save" *ngIf="!isEditing">
+            <i class="fa-solid fa-file-export"></i>
           </button>
         }
+        
 
 
       </ng-template>
