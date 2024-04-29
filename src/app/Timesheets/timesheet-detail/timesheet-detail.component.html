@@ -160,6 +160,9 @@
           <button kendoGridCancelCommand type="button">
             {{ isNew ? "Discard changes" : "Cancel" }}
           </button>
+          <button class="btn btn-primary" (click) = "updateDraftStatus(dataItem.id)">
+            Save
+          </button>
         }
 
 

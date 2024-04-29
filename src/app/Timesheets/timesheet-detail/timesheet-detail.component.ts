@@ -263,4 +263,15 @@ export class TimesheetDetailComponent {
     this.formGroup = undefined;
   }
 
+
+  updateDraftStatus(id:any){
+    this.dataService
+      .updateTimesheetDraftStatus(this.timesheetId, id)
+      .subscribe((result)=>{
+        console.log(result);
+        this.loadItem();
+      }
+    )
+  }
+
 }

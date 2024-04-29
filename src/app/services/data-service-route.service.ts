@@ -57,5 +57,9 @@ export class DataServiceRouteService {
     return this.httpClient.post<any>(this.apiUrl+"/dashboard/"+timesheetId+"/store",{fileId:fileId})
   }
 
+   updateTimesheetDraftStatus(timesheetId:any,id:any){
+    return this.httpClient.get<any>(this.apiUrl+"/dashboard/"+timesheetId+"/draftstatus/"+id)
+   }
+
 
 }
