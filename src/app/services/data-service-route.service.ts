@@ -20,8 +20,8 @@ export class DataServiceRouteService {
     return this.httpClient.post<{timesheet_id:any}>(this.apiUrl+"/timesheets", timesheet);
   }
 
-  getTimesheetById(id: any) {
-    return this.httpClient.get<timesheetDetail>(this.apiUrl+"/dashboard/"+id);
+  getTimesheetById(skip:any, take:any, id: any) {
+    return this.httpClient.get<timesheetDetail>(this.apiUrl+"/dashboard/"+id+"?skip="+skip+"&take="+take);
   }
 
   addManualRow(id:number ,timesheetDetail: timesheetDetail){
