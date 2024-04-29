@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { GridComponent, GridModule, PageChangeEvent, GridDataResult, CancelEvent, EditEvent,RemoveEvent, SaveEvent, AddEvent, } from '@progress/kendo-angular-grid';
 import { CompositeFilterDescriptor, GroupDescriptor, GroupResult, SortDescriptor, filterBy, groupBy, orderBy, process, State } from '@progress/kendo-data-query';
 import { DataServiceRouteService } from '../../services/data-service-route.service';
-import { filter } from 'rxjs';
+import { filter, take } from 'rxjs';
 import { FormBuilder, FormControl, FormGroup, FormsModule, NgModel, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { timesheetDetail } from '../../models/timesheet-detail';
@@ -108,7 +108,7 @@ export class TimesheetDetailComponent {
     console.log(this.timesheetId);
     this.gridloading = true;
     this.dataService
-      .getTimesheetById(this.timesheetId)
+      .getTimesheetById(this.skip, this.pageSize, this.timesheetId)
       .subscribe({
         next:(result)=>{
           this.getTimesheetDetail = result;
@@ -180,11 +180,12 @@ export class TimesheetDetailComponent {
       console.log('row added', this.addRowForm.value);
       console.log('timesheet', this.timesheetId);
       this.gridloading = true;
+      this.skip = 0;
       this.dataService
         .addManualRow(this.timesheetId, this.addRowForm.value)
         .subscribe((result : any) => {
-          this.timesheetDetail = result?.details_data ? result.details_data : [];
-          this.gridloading = false;
+          // this.timesheetDetail = result?.details_data ? result.details_data : [];
+          // this.gridloading = false;
           this.loadItem();
         });
         this.showAddRowForm = !this.showAddRowForm;
@@ -216,7 +217,6 @@ export class TimesheetDetailComponent {
   }
 
   public saveHandler(args: SaveEvent){
-
     if(args.isNew === false){
       const updatedData = {
         id: this.formGroup.value.id,
@@ -245,7 +245,7 @@ export class TimesheetDetailComponent {
     console.log("delete");
     this.dataService.deleteTimesheet( event.dataItem.timesheet_id,event.dataItem.id).subscribe((result) => {
       console.log(result);
-      this.loadItem()
+      this.loadItem();
     })
   }
 
