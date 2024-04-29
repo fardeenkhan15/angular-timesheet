@@ -67,4 +67,10 @@ export class InvoiceService {
     return this.httpClient.post<any>(createInvoice, {id:id, data:invoiceData});
   }
 
+  sendMail(id: any) {
+    const sendMail = `http://127.0.0.1:8000/api/email-invoice?id=${id}`;
+
+    return this.httpClient.get<any>(sendMail);
+  }
+
 }

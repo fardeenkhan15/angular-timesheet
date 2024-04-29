@@ -301,6 +301,12 @@ export class InvoiceDashboardComponent implements OnInit {
   }
 
 
+  sendMail(id: any) {
+    this.invoiceService.sendMail(id).subscribe((response) => {
+      console.log(response.message);
+    })
+  }
+
 
   onClick(){
     console.log("clicked");
