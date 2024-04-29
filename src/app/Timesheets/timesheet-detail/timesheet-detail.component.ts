@@ -239,6 +239,7 @@ export class TimesheetDetailComponent {
           .subscribe((result)=>{
             console.log(result);
             this.closeEditor(args.sender);
+            this.toastService.success("Edited Successfuly");
             this.loadItem();
             this.isEditing[args.dataItem.id] = false;
           })
