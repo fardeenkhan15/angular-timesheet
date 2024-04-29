@@ -4,12 +4,14 @@ import { DataToCsvService } from '../../services/data-to-csv.service';
 import { GridModule } from '@progress/kendo-angular-grid';
 import { DataServiceRouteService } from '../../services/data-service-route.service';
 import { Toast, ToastrService } from 'ngx-toastr';
+import { HeaderComponent } from '../../header/header.component';
 
 @Component({
   selector: 'app-check-csv',
   standalone: true,
   imports: [
-    GridModule
+    GridModule,
+    HeaderComponent
   ],
   templateUrl: './check-csv.component.html',
   styleUrl: './check-csv.component.css'
@@ -39,7 +41,7 @@ export class CheckCsvComponent {
 
   loadItem(){
     this.dataService.fetchCsvDatas(this.fileId, this.timesheetId, this.noOfRows).subscribe((result)=>{
-      this.timesheetDatas = result.csv_data.data;
+      this.timesheetDatas = result.csv_data;
       console.log(this.timesheetDatas);
     });
   }
