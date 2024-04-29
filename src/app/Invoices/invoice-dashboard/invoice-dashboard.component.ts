@@ -304,10 +304,20 @@ export class InvoiceDashboardComponent implements OnInit {
 
 
   sendMail(id: any) {
-    this.invoiceService.sendMail(id).subscribe((response) => {
-      console.log(response.message);
-      this.toasterService.success("Mail sent successfully");
-    })
+    
+      this.invoiceService.sendMail(id).subscribe((response) => {
+        console.log(response.message);
+        if(response.message=="The email sent successfully"){
+          this.toasterService.success("Mail sent successfully");
+        }
+        else{
+          this.toasterService.error("Mail was not sent");
+
+
+        }
+      })
+    
+
   }
 
 
