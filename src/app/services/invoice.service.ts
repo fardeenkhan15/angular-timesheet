@@ -61,10 +61,11 @@ export class InvoiceService {
   }
 
 
-  createInvoice(id:any, invoiceData:any){
-    const createInvoice = `http://127.0.0.1:8000/api/invoice/create?id=${id}&data=${invoiceData}`
+  createInvoice(invoiceData:any){
+    
+    // const createInvoice = `http://127.0.0.1:8000/api/invoice/create?id=${id}&data=${invoiceData}`
 
-    return this.httpClient.post<any>(createInvoice, {id:id, data:invoiceData});
+    return this.httpClient.post<any>('http://127.0.0.1:8000/api/invoices/create', { data:invoiceData});
   }
 
   sendMail(id: any) {
