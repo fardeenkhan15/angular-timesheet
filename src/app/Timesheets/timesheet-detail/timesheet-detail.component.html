@@ -146,6 +146,9 @@
         @if (!dataItem.draft_status && !dataItem.invoice_status ){
           INVOICING
         }
+        @if(!dataItem.draft_status && dataItem.invoice_status){
+          INVOICED
+        }
         @if (dataItem.draft_status){
           <button id="action-button" kendoGridEditCommand type="button" title="Edit" (click)="isEditing = true">
             <i class="fas fa-edit"></i>
