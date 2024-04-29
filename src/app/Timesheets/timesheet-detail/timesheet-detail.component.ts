@@ -251,7 +251,7 @@ export class TimesheetDetailComponent {
     console.log("delete");
     this.dataService.deleteTimesheet( event.dataItem.timesheet_id,event.dataItem.id).subscribe((result) => {
       console.log(result);
-      this.toastService.success("Deletd Successfuly")
+      this.toastService.success("Deleted Successfuly")
       this.loadItem();
     })
   }
